@@ -4,7 +4,7 @@
 
 © Made By Shubham Patel
 
-**▶ Live app: `https://YOUR-USERNAME.github.io/REPO-NAME/`** (see "View it online" below)
+**▶ Live app: https://pigment-shubham.github.io/pigment/** (turn on in Settings → Pages, see below)
 
 Pigment draws every wallpaper from code, so there are no stock images. Pick a style and a palette, tweak it, and download it as a still image, a looping video or a live wallpaper.
 
@@ -19,7 +19,7 @@ Pigment draws every wallpaper from code, so there are no stock images. Pick a st
 ## View it online (GitHub Pages)
 1. On GitHub open this repository → **Settings** → **Pages**.
 2. Under **Build and deployment** choose **Deploy from a branch**, branch **main**, folder **/ (root)**, then **Save**.
-3. After about a minute your app is live at `https://YOUR-USERNAME.github.io/REPO-NAME/`. Put that link at the top of this file.
+3. After about a minute your app is live at `https://pigment-shubham.github.io/pigment/`. That link is already at the top of this file.
 
 You can also just download `index.html` and open it. Sign-in (Firebase) only works from a real web address, such as the GitHub Pages one.
 
