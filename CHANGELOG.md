@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.6.1
+- New Pills vibe: Pill Row, Pill Wave, Pill Fan and Pill Night.
+
 ## 3.6.0
 - Search box in Browse: type words like dark, calm, moon, apple or warm.
 - Favourite palette: show every style in one palette you choose.

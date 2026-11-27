@@ -29,6 +29,10 @@ const STYLES = [
   
   
   ['liquid', 'Liquid Satin', drawLiquid, true, 'Glossy satin ribbons that flow across the screen', 'Lilac'],
+  ['pillrow', 'Pill Row', drawPillRow, true, 'Overlapping soft pills that breathe in a wave', 'Lilac'],
+  ['pillwave', 'Pill Wave', drawPillWave, true, 'Pills sliding up and down in a gentle wave', 'Lagoon'],
+  ['pillfan', 'Pill Fan', drawPillFan, true, 'Pills tilting slowly like a fan', 'Sorbet'],
+  ['pillnight', 'Pill Night', drawPillNight, true, 'Glowing neon pills on black', 'Neon'],
   ['applekey', 'Command Key', drawAppleKey, true, 'A keycap with the command symbol, light or dark by palette', 'Cotton'],
   ['appleglass', 'Glass Command', drawAppleGlass, true, 'A big frosted glass command symbol over soft colour', 'Lilac'],
   ['applesearch', 'Spotlight Bar', drawAppleSearch, true, 'A floating search bar with a blinking cursor', 'Sorbet'],
@@ -60,7 +64,7 @@ const STYLES = [
 ];
 const PHOTO_ENTRY = ['photo', 'Photo', drawPhoto, false, 'Your own picture, fitted to the screen', 'Sorbet'];
 /* vibes: browse by look and feel */
-const VIBES = [['Soft', 'grain silk marble frosted paper aurora waves bubbles'], ['Retro', 'sungrid vinyl sunburst halftone'], ['Nature', 'dunes contours ripples fireflies aurora'], ['Tech', 'hexgrid constellation orbits metaballs bloom'], ['Craft', 'paper mosaic shapes bars'], ['Music', 'eq pulse vinyl wavebeat'], ['Scenes', 'weathersky campfire rainwindow moonphase leaves pixeldusk stormhills lake sea blossom fireworks warp aurora'], ['Designer', 'liquidmetal lavalamp tarot rosewindow liquid frosted grain silk'], ['Apple', 'applekey appleglass applesearch appleisland applerings appleorb'], ['Pigment', 'brandlogo brandtype branddrops']];
+const VIBES = [['Soft', 'grain silk marble frosted paper aurora waves bubbles'], ['Retro', 'sungrid vinyl sunburst halftone'], ['Nature', 'dunes contours ripples fireflies aurora'], ['Tech', 'hexgrid constellation orbits metaballs bloom'], ['Craft', 'paper mosaic shapes bars'], ['Music', 'eq pulse vinyl wavebeat'], ['Scenes', 'weathersky campfire rainwindow moonphase leaves pixeldusk stormhills lake sea blossom fireworks warp aurora'], ['Designer', 'liquidmetal lavalamp tarot rosewindow liquid frosted grain silk'], ['Pills', 'pillrow pillwave pillfan pillnight'], ['Apple', 'applekey appleglass applesearch appleisland applerings appleorb'], ['Pigment', 'brandlogo brandtype branddrops']];
 const CUSTOM_ENTRY = ['custom', 'Custom', drawRecipe, true, 'A one-off composition invented by the assistant', 'Sorbet'];
 const styleOf = k => k === 'photo' ? PHOTO_ENTRY : k === 'custom' ? CUSTOM_ENTRY : STYLES.find(s => s[0] === k);
 /* Calm strip along the top edge so a Mac menu bar stays readable on desktop wallpapers. */
