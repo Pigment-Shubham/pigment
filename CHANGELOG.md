@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.3.0
+- Trimmed from 81 to 39 styles (975 wallpapers) to keep the collection focused. Removed styles are no longer listed; old saved copies of them are simply hidden.
+- Fixed the mood buttons (Focus, Sleep, Cozy, Party), which sometimes failed to open a wallpaper.
+
 ## 3.2.1
 - Browse now shows one look per style (81) instead of every colour version. A "Show every colour" switch brings back all 2,025, and picking a style still shows all its colours.
 

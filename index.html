@@ -1278,52 +1278,52 @@ function drawGrassField(ctx, w, h, d, t, o) {
 }
 
 const STYLES = [
-  ['grain', 'Grain', drawGrain, true, 'Soft colour fields with film grain', 'Sorbet'], ['ridges', 'Ridgelines', drawRidges, true, 'Stacked lines that drift like a signal', 'Dusk'],
+  ['grain', 'Grain', drawGrain, true, 'Soft colour fields with film grain', 'Sorbet'], 
   ['dunes', 'Dunes', drawDunes, true, 'Layered hills under a low sun', 'Lagoon'], ['halftone', 'Halftone', drawHalftone, true, 'A dot screen that breathes', 'Candy'],
   ['aurora', 'Aurora', drawAurora, true, 'Curtains of light swaying overhead', 'Forest'], ['ripples', 'Ripples', drawRipples, true, 'Rings spreading from two drops', 'Deep Sea'],
   ['contours', 'Contours', drawContours, true, 'Topographic lines that slowly shift', 'Sand'], ['waves', 'Waves', drawWaves, true, 'Fine lines rolling in a gradient', 'Lilac'],
-  ['bubbles', 'Bubbles', drawBubbles, true, 'Glassy bubbles bouncing off the walls', 'Cotton'], ['stardust', 'Stardust', drawStardust, true, 'Twinkling stars and soft nebulae', 'Midnight'],
+  ['bubbles', 'Bubbles', drawBubbles, true, 'Glassy bubbles bouncing off the walls', 'Cotton'], 
   ['mosaic', 'Mosaic', drawMosaic, true, 'Rounded tiles that pulse in colour', 'Mint'], ['bars', 'Bars', drawBars, true, 'Soft pills rising and falling', 'Rose Gold'],
-  ['bloom', 'Bloom', drawBloom, true, 'A sunflower spiral that turns', 'Ember'], ['spiro', 'Spiro', drawSpiro, true, 'Looping curves in layers', 'Neon'],
-  ['opart', 'Op-art', drawOpart, true, 'A warped checkerboard that ripples', 'Poster'], ['shapes', 'Shapes', drawShapes, false, 'Flat Bauhaus tiles', 'Poster'],
+  ['bloom', 'Bloom', drawBloom, true, 'A sunflower spiral that turns', 'Ember'], 
+  ['shapes', 'Shapes', drawShapes, false, 'Flat Bauhaus tiles', 'Poster'],
   ['metaballs', 'Metaballs', drawMetaballs, true, 'Gooey blobs that merge and split', 'Candy'],
   ['silk', 'Silk', drawSilk, true, 'Flowing satin ribbons', 'Rose Gold'], ['sungrid', 'Retro Sun', drawSungrid, true, 'Synthwave sun over a rolling grid', 'Neon'],
-  ['kaleido', 'Kaleidoscope', drawKaleido, true, 'Mirrored petals that slowly turn', 'Midnight'], ['truchet', 'Truchet', drawTruchet, true, 'Quarter-circle tiles with colours that flow', 'Poster'],
-  ['voronoi', 'Glass Cells', drawVoronoi, true, 'Stained-glass cells that drift', 'Lagoon'], ['fireflies', 'Fireflies', drawFireflies, true, 'Glowing fireflies over dark grass', 'Forest'],
-  ['rain', 'Rain on Glass', drawRain, true, 'Raindrops running down a window', 'Deep Sea'], ['dither', 'Dither', drawDither, true, 'Retro pixel-dither gradients', 'Ember'],
-  ['daysky', 'Day Sky', drawDaysky, true, 'A sky that moves through a whole day', 'Dusk'],
-  ['gradient', 'Gradient', drawGradient, true, 'A clean, smooth two-tone gradient with grain', 'Lilac'], ['brandlogo', 'Pigment Logo', drawBrandLogo, true, 'The Pigment drop and name, floating', 'Sorbet'],
+  ['kaleido', 'Kaleidoscope', drawKaleido, true, 'Mirrored petals that slowly turn', 'Midnight'], 
+  ['fireflies', 'Fireflies', drawFireflies, true, 'Glowing fireflies over dark grass', 'Forest'],
+  
+  
+  ['brandlogo', 'Pigment Logo', drawBrandLogo, true, 'The Pigment drop and name, floating', 'Sorbet'],
   ['brandtype', 'Pigment Type', drawBrandType, true, 'Big PIGMENT lettering sliding in rows', 'Poster'], ['branddrops', 'Pigment Drops', drawBrandDrops, true, 'A field of breathing drops', 'Candy'],
   ['eq', 'Equalizer', drawEQ, true, 'Music bars that dance to a beat or your mic', 'Neon'], ['pulse', 'Beat Pulse', drawPulse, true, 'Rings thump out on every beat', 'Ember'],
   ['vinyl', 'Vinyl', drawVinyl, true, 'A spinning record with a glow', 'Midnight'], ['wavebeat', 'Soundwave', drawWavebeat, true, 'Glowing waveforms that swell with the beat', 'Deep Sea'],
   ['marble', 'Marble', drawMarble, true, 'Swirling marbled ink', 'Lilac'], ['sunburst', 'Sunburst', drawSunburst, true, 'Retro rays turning around a sun', 'Sorbet'],
   ['hexgrid', 'Hex Grid', drawHexgrid, true, 'A honeycomb that ripples with colour', 'Mint'], ['orbits', 'Orbits', drawOrbits, true, 'Little worlds circling a glow', 'Midnight'],
   ['confetti', 'Confetti', drawConfetti, true, 'Paper confetti drifting down', 'Candy'], ['constellation', 'Constellation', drawConstellation, true, 'Stars joined by drifting lines', 'Dusk'],
-  ['glassorbs', 'Glass Orbs', drawGlassOrbs, true, 'Glossy 3D spheres floating in soft light', 'Peach Fizz'], ['holofoil', 'Holo Foil', drawHoloFoil, true, 'Iridescent foil with sliding glints', 'Lilac'],
-  ['frosted', 'Frosted Glass', drawFrosted, true, 'Frosted panes drifting over glowing colour', 'Blueberry'], ['galaxy', 'Galaxy', drawGalaxy, true, 'A turning spiral galaxy of thousands of stars', 'Midnight'],
-  ['caustics', 'Caustics', drawCaustics, true, 'Sunlight rippling on a pool floor', 'Lagoon'], ['bokeh', 'Bokeh', drawBokeh, true, 'Soft out-of-focus lights at night', 'Dusk'],
-  ['paper', 'Paper Layers', drawPaperLayers, true, 'Cut-paper waves with soft shadows', 'Sorbet'], ['shafts', 'Light Shafts', drawLightShafts, true, 'Beams of light through dusty air', 'Ember'],
-  ['riso', 'Risograph', drawRiso, true, 'Overprinted ink shapes with halftone and paper grain', 'Poster'], ['blueprint', 'Blueprint', drawBlueprint, true, 'A technical drawing with a sweeping radar line', 'Deep Sea'],
-  ['zenink', 'Zen Ink', drawZenInk, true, 'Ink-wash mountains, mist and a brushed enso', 'Sand'], ['memphis', 'Memphis', drawMemphis, true, '80s squiggles, zigzags and confetti shapes', 'Cotton'],
-  ['hud', 'Sci-fi HUD', drawHUD, true, 'Rotating rings, ticks and a scanning sweep', 'Neon'], ['filmleak', 'Film Leak', drawFilmLeak, true, 'Analog light leaks, dust and film grain', 'Ember'],
-  ['terrazzo', 'Terrazzo', drawTerrazzo, true, 'Speckled stone chips in a polished floor', 'Peach Fizz'], ['deco', 'Art Deco', drawDeco, true, 'Gold-lined scallops with a travelling shimmer', 'Midnight'],
-  ['meshgrad', 'Mesh Gradient', drawMeshGrad, true, 'Soft melting colour mesh that slowly drifts', 'Sorbet'], ['liquid', 'Liquid Satin', drawLiquid, true, 'Glossy satin ribbons that flow across the screen', 'Lilac'],
-  ['gloworb', 'Glow Orb', drawGlowOrb, true, 'A luminous sphere with a halo and orbit lines', 'Midnight'], ['softwaves', 'Soft Waves', drawSoftWaves, true, 'Layered silky hills of colour that gently sway', 'Dusk'],
-  ['prism', 'Prism Glass', drawPrism, true, 'Frosted glass panes over glowing colour', 'Cotton'], ['petals', 'Petal Bloom', drawPetals, true, 'Overlapping glowing petals that turn like a flower', 'Neon'],
-  ['spheres', 'Soft Spheres', drawSoftSpheres, true, 'Smooth 3D pebbles floating with soft shadows', 'Peach Fizz'], ['aurarings', 'Aura Rings', drawAuraRings, true, 'Glowing rings pulsing outward from the centre', 'Blueberry'],
-  ['stormhills', 'Storm Hills', drawStormHills, true, 'Rain, rolling clouds and lightning over dark hills', 'Deep Sea'], ['snowfall', 'Snowfall', drawSnowfall, true, 'Quiet snowy pines under a full moon', 'Midnight'],
-  ['pixeldusk', 'Pixel Dusk', drawPixelDusk, true, '8-bit sunset with clouds, stars and pine trees', 'Dusk'], ['isocity', 'Isometric City', drawIsoCity, true, 'Tiny isometric towers with windows that light up', 'Blueberry'],
-  ['rosewindow', 'Rose Window', drawRoseWindow, true, 'Stained-glass rose window that glows and shimmers', 'Ember'], ['tarot', 'Tarot Sun', drawTarot, true, 'Hand-drawn tarot poster with a rotating sun', 'Sand'],
-  ['startrails', 'Star Trails', drawStarTrails, true, 'Long-exposure stars wheeling over dark hills', 'Midnight'], ['rainwindow', 'Rainy Window', drawRainWindow, true, 'Raindrops sliding down glass over city bokeh', 'Neon'],
-  ['grassfield', 'Grass Field', drawGrassField, true, 'Swaying grass in golden light', 'Matcha'],
-  ['lake', 'Moonlit Lake', drawLake, true, 'Layered mountains, drifting mist and a rippling reflection', 'Dusk'], ['neoncity', 'Neon City', drawNeonCity, true, 'Rainy skyline with blinking windows and neon signs', 'Neon'],
+  
+  ['frosted', 'Frosted Glass', drawFrosted, true, 'Frosted panes drifting over glowing colour', 'Blueberry'], 
+  
+  ['paper', 'Paper Layers', drawPaperLayers, true, 'Cut-paper waves with soft shadows', 'Sorbet'], 
+  
+  
+  
+  
+  ['liquid', 'Liquid Satin', drawLiquid, true, 'Glossy satin ribbons that flow across the screen', 'Lilac'],
+  
+  
+  
+  ['stormhills', 'Storm Hills', drawStormHills, true, 'Rain, rolling clouds and lightning over dark hills', 'Deep Sea'], 
+  
+  
+  
+  
+  ['lake', 'Moonlit Lake', drawLake, true, 'Layered mountains, drifting mist and a rippling reflection', 'Dusk'], 
   ['sea', 'Sunset Sea', drawSeaSunset, true, 'Rolling waves and sun glitter at golden hour', 'Ember'], ['blossom', 'Blossom Night', drawBlossom, true, 'Cherry petals falling past a full moon', 'Spring Blossom'],
   ['fireworks', 'Fireworks', drawFireworks, true, 'Bursts of light over a quiet skyline', 'Midnight'], ['warp', 'Warp Speed', drawWarp, true, 'Stars streaking past at light speed', 'Blueberry'],
-  ['deepsea', 'Deep Sea', drawDeepSea, true, 'Glowing jellyfish and light shafts underwater', 'Deep Sea'], ['smoke', 'Ink Smoke', drawSmoke, true, 'Glowing wisps of smoke that swirl', 'Ember']
+  
 ];
 const PHOTO_ENTRY = ['photo', 'Photo', drawPhoto, false, 'Your own picture, fitted to the screen', 'Sorbet'];
 /* vibes: browse by look and feel */
-const VIBES = [['Soft', 'grain gradient silk marble holofoil glassorbs frosted paper bokeh aurora waves bubbles'], ['Retro', 'pixeldusk tarot sungrid dither memphis riso daysky vinyl sunburst opart halftone deco filmleak'], ['Nature', 'dunes ridges contours ripples caustics fireflies rain stardust galaxy zenink shafts aurora'], ['Tech', 'hud blueprint voronoi hexgrid constellation orbits truchet metaballs spiro bloom'], ['Craft', 'riso terrazzo paper mosaic memphis shapes bars zenink deco'], ['Music', 'eq pulse vinyl wavebeat'], ['Scenes', 'stormhills snowfall pixeldusk isocity rosewindow startrails rainwindow grassfield lake neoncity sea blossom fireworks warp deepsea smoke galaxy daysky aurora'], ['Designer', 'meshgrad liquid gloworb softwaves prism petals spheres aurarings glassorbs frosted grain silk'], ['Pigment', 'brandlogo brandtype branddrops']];
+const VIBES = [['Soft', 'grain silk marble frosted paper aurora waves bubbles'], ['Retro', 'sungrid vinyl sunburst halftone'], ['Nature', 'dunes contours ripples fireflies aurora'], ['Tech', 'hexgrid constellation orbits metaballs bloom'], ['Craft', 'paper mosaic shapes bars'], ['Music', 'eq pulse vinyl wavebeat'], ['Scenes', 'stormhills lake sea blossom fireworks warp aurora'], ['Designer', 'liquid frosted grain silk'], ['Pigment', 'brandlogo brandtype branddrops']];
 const styleOf = k => k === 'photo' ? PHOTO_ENTRY : STYLES.find(s => s[0] === k);
 /* Calm strip along the top edge so a Mac menu bar stays readable on desktop wallpapers. */
 function menuBand(ctx, w, h, c) { const s = h * .034, f = h * .09, g = ctx.createLinearGradient(0, 0, 0, f); g.addColorStop(0, c); g.addColorStop(s / f, c); g.addColorStop(1, rgba(c, 0)); ctx.fillStyle = g; ctx.fillRect(0, 0, w, f); }
@@ -1657,7 +1657,7 @@ function initHome() {
   if ($('#mq').firstChild) { startAnim('hero', $('#heroCv'), () => heroD, 30); return; }
   setHero(0); startAnim('hero', $('#heroCv'), () => heroD, 30); paintTo($('#heroCv'), heroD, 2);
   $('#heroOpen').onclick = () => openView(heroD);
-  const picks = ['grain-sorbet', 'ridges-dusk', 'dunes-lagoon', 'halftone-candy', 'shapes-poster', 'grain-deep-sea', 'dunes-sand', 'ridges-lilac', 'halftone-ember', 'shapes-mint', 'grain-moss', 'dunes-dusk'].map(byId), tr = $('#mq');
+  const picks = ['grain-sorbet', 'silk-dusk', 'dunes-lagoon', 'halftone-candy', 'shapes-poster', 'grain-deep-sea', 'dunes-sand', 'silk-lilac', 'halftone-ember', 'shapes-mint', 'grain-moss', 'dunes-dusk'].map(byId), tr = $('#mq');
   for (let r = 0; r < 2; r++) picks.forEach(d => { const cv = makeCanvas(150, 325); enqueue(() => paintTo(cv, d, 2)); cv.onclick = () => openView(d); cv.style.cursor = 'pointer'; tr.appendChild(cv); });
   const sg = $('#styleGal'); STYLES.forEach(([k, l, f, live, desc], i) => { const d = ALL.find(a => a.style === k && a.pal === STYLES[i][5]); const c = card(Object.assign({}, d, { name: l }), 'desk', () => { fStyle = k; location.hash = '#browse'; }, i); $('small', c).textContent = desc; sg.appendChild(c); });
 }
@@ -1693,8 +1693,8 @@ $('#stPair').onclick = () => downloadPair(stD(), ST.dev, $('#stSize').value);
 $('#stPhoto').onchange = e => { const f = e.target.files && e.target.files[0]; if (!f) return; const im = new Image(), u = URL.createObjectURL(f); im.onload = () => { try { ST.colors = paletteFromImage(im); ST.pal = null; buildStudio(); toast('Colours picked from your photo.'); } catch (x) { toast('Could not read that photo.'); } URL.revokeObjectURL(u); }; im.onerror = () => toast('Could not open that image.'); im.src = u; e.target.value = ''; };
 $('#stDl').onclick = () => download(stD(), ST.dev, $('#stSize').value); if (TOUCH) $('#stDl').textContent = 'Save image';
 
-{ const MOODS = [['Focus', ['contours', 'dunes', 'grain', 'waves', 'silk'], ['Sand', 'Mint', 'Lagoon', 'Moss', 'Lilac'], .5], ['Sleep', ['stardust', 'aurora', 'fireflies', 'daysky'], ['Midnight', 'Deep Sea', 'Forest', 'Dusk'], .5], ['Cozy', ['rain', 'fireflies', 'bubbles', 'dunes'], ['Ember', 'Rose Gold', 'Sand', 'Sorbet'], .6], ['Party', ['spiro', 'bars', 'kaleido', 'sungrid', 'halftone'], ['Neon', 'Candy', 'Poster', 'Midnight'], 1.4]], host = $('#moods'), k = document.createElement('span'); k.className = 'kick'; k.textContent = 'Pick a mood'; host.append(k);
-  MOODS.forEach(([n, ss, ps, sp]) => { const b = document.createElement('button'); b.className = 'pill line sm'; b.textContent = n; b.onclick = () => { const sk = ss[Math.floor(Math.random() * ss.length)], pl = PALS.find(p => p[0] === ps[Math.floor(Math.random() * ps.length)]); openView({ id: 'mood', style: sk, colors: pl[1].slice(), seed: Math.floor(Math.random() * 9000) + 1, name: pl[0] + ' ' + styleOf(sk)[1], o: { speed: sp } }); }; host.appendChild(b); }); }
+{ const MOODS = [['Focus', ['contours', 'dunes', 'grain', 'waves', 'silk'], ['Sand', 'Mint', 'Lagoon', 'Moss', 'Lilac'], .5], ['Sleep', ['aurora', 'fireflies', 'lake', 'blossom'], ['Midnight', 'Deep Sea', 'Forest', 'Dusk'], .5], ['Cozy', ['fireflies', 'bubbles', 'dunes', 'blossom'], ['Ember', 'Rose Gold', 'Sand', 'Sorbet'], .6], ['Party', ['bars', 'kaleido', 'sungrid', 'halftone', 'confetti'], ['Neon', 'Candy', 'Poster', 'Midnight'], 1.4]], host = $('#moods'), k = document.createElement('span'); k.className = 'kick'; k.textContent = 'Pick a mood'; host.append(k);
+  MOODS.forEach(([n, ss, ps, sp]) => { const b = document.createElement('button'); b.className = 'pill line sm'; b.textContent = n; b.onclick = () => { const sk = ss[Math.floor(Math.random() * ss.length)], pn = ps[Math.floor(Math.random() * ps.length)], pl = PALS.find(p => p[0] === pn); openView({ id: 'mood', style: sk, colors: pl[1].slice(), seed: Math.floor(Math.random() * 9000) + 1, name: pl[0] + ' ' + styleOf(sk)[1], o: { speed: sp } }); }; host.appendChild(b); }); }
 $('#surprise').onclick = () => { const live = ALL.filter(a => styleOf(a.style)[3]), pl = PALS[Math.floor(Math.random() * PALS.length)], b = live[Math.floor(Math.random() * live.length)]; openView(Object.assign({}, b, { colors: pl[1].slice(), seed: Math.floor(Math.random() * 9000) + 1, name: pl[0] + ' ' + styleOf(b.style)[1], o: {} })); };
 { const ft = $('#footNote'), lb = document.createElement('button'); lb.className = 'authlink'; const sync = () => { lb.textContent = 'Battery saver: ' + (LITE ? 'on' : 'off'); }; sync(); lb.onclick = () => { LITE = !LITE; LS.set('pg_lite', LITE); sync(); toast(LITE ? 'Battery saver on: animations run gently.' : 'Battery saver off.'); }; ft.after(lb); }
 /* ---------- router ---------- */
@@ -1710,7 +1710,7 @@ window.addEventListener('hashchange', () => { route(); window.scrollTo(0, 0); })
 updSaved(); route();
 
 /* ---------- local profile (name + picture), version check ---------- */
-const APP_VERSION = '3.2.1';
+const APP_VERSION = '3.3.0';
 (function () {
   const btn = $('#authBtn'), av = $('#authView'), box = $('#authActs');
   let P = LS.get('pg_profile', null);
