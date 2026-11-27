@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.6.0
+- Search box in Browse: type words like dark, calm, moon, apple or warm.
+- Favourite palette: show every style in one palette you choose.
+- Today's pick has a Download button.
+- Share card: a ready-to-post image of your wallpaper in a phone frame.
+
 ## 3.5.1
 - New Apple vibe with 6 one-focus wallpapers: Command Key, Glass Command, Spotlight Bar, Dynamic Pill, Activity Rings and Siri Orb.
 

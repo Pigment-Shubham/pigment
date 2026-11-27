@@ -277,7 +277,8 @@ function initSaved() {
 }
 
 /* ---------- browse + home ---------- */
-let fStyle = 'all', fVibe = 'all', bDev = 'phone', fAll = false;
+let fStyle = 'all', fVibe = 'all', bDev = 'phone', fAll = false, fQuery = '';
+const favPal = () => LS.get('pg_favpal', '') || '';
 function initBrowse() {
   const chips = $('#styleChips'); chips.textContent = '';
   { const vc = $('#vibeChips'); vc.textContent = ''; [['all', 'All vibes']].concat(VIBES.map(v => [v[0], v[0]])).forEach(([k, l]) => { const b = document.createElement('button'); b.className = 'chip' + (fVibe === k ? ' on' : ''); b.textContent = l; b.onclick = () => { fVibe = k; fStyle = 'all'; initBrowse(); }; vc.appendChild(b); }); }
@@ -285,7 +286,7 @@ function initBrowse() {
   [['all', 'All styles']].concat(STYLES.filter(s => !vk || vk.includes(s[0])).map(s => [s[0], s[1]])).forEach(([k, l]) => { const b = document.createElement('button'); b.className = 'chip' + (fStyle === k ? ' on' : ''); b.textContent = l; b.onclick = () => { fStyle = k; initBrowse(); }; chips.appendChild(b); });
   $$('#devSeg button').forEach(b => b.classList.toggle('on', b.dataset.d === bDev));
   const g = $('#gal'); g.className = 'gal' + (bDev === 'desk' ? ' desk' : ''); g.textContent = ''; queue.length = 0;
-  const list = ALL.filter(d => (fStyle === 'all' || d.style === fStyle) && (!vk || vk.includes(d.style)) && (fAll || fStyle !== 'all' || d.pal === styleOf(d.style)[5])), PAGE = 48; let shown = 0;
+  const q = fQuery.trim().toLowerCase(), list = q ? ALL.filter(d => searchMatch(d, q)) : ALL.filter(d => (fStyle === 'all' || d.style === fStyle) && (!vk || vk.includes(d.style)) && (fAll || fStyle !== 'all' || d.pal === (favPal() || styleOf(d.style)[5]))), PAGE = 48; let shown = 0;
   const more = document.createElement('div'); more.style.cssText = 'display:flex;justify-content:center;margin:26px 0 8px';
   const mb = document.createElement('button'); mb.className = 'pill line'; more.appendChild(mb);
   const next = () => { list.slice(shown, shown + PAGE).forEach((d, i) => g.appendChild(card(d, bDev, openView, i))); shown = Math.min(list.length, shown + PAGE); mb.textContent = 'Show more (' + (list.length - shown) + ' left)'; more.hidden = shown >= list.length; };
