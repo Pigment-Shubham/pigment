@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.5.0
+- 10 new wallpapers: Liquid Metal, Lava Lamp, Weather Sky (follows your real time of day), Tarot Sun, Stained Glass, Rainy Window, Campfire, Moon Phase (tonight's real phase), Autumn Leaves and Pixel Dusk.
+- Cards have a one-tap download button.
+- Surprise me is now a full-screen shuffle: swipe or use the arrow keys to skip or keep, Enter to open.
+- Phone preview has a before/after switch and a live lock-screen clock.
+- Saved wallpapers can be sorted into collections.
+- Compare palettes slider in the wallpaper viewer.
+- First-visit tour and a keyboard shortcuts list (press ?).
+- Your Look settings and collections are included in profile backup and restore, so they follow you to other devices.
+- Phone layout has a bottom tab bar.
+
 ## 3.4.1
 - Browse filters are clearer: the two rows are now labelled "Filter by vibe" and "Pick a style", with a divider between them and clearer "All vibes" and "All styles" buttons.
 

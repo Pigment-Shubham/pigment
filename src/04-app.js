@@ -186,6 +186,7 @@ function card(d, dev, onOpen, i) {
   const m = document.createElement('div'); m.className = 'm'; const l = document.createElement('div'), n = document.createElement('b'), s = document.createElement('small');
   n.textContent = d.name; s.textContent = styleOf(d.style)[3] ? 'Live · ' + styleOf(d.style)[1] : styleOf(d.style)[1]; l.append(n, s); const sw = document.createElement('div'); sw.className = 'sw5';
   d.colors.forEach(c => { const x = document.createElement('i'); x.style.background = c; sw.appendChild(x); }); m.append(l, sw); b.appendChild(m);
+  if (d.id !== 'mood') { const q = document.createElement('span'); q.className = 'cdl'; q.setAttribute('role', 'button'); q.setAttribute('aria-label', 'Download ' + d.name); q.title = TOUCH ? 'Save image' : 'Download'; q.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/></svg>'; q.onclick = ev => { ev.stopPropagation(); ev.preventDefault(); download(d, dev); }; b.appendChild(q); }
   const key = 'card' + Math.random();
   if (styleOf(d.style)[3] && !reduced) { b.addEventListener('mouseenter', () => startAnim(key, cv, () => d, 24, mo)); b.addEventListener('mouseleave', () => { stopAnim(key); paintTo(cv, d, 2, mo); }); }
   b.addEventListener('click', () => onOpen(d)); return b;

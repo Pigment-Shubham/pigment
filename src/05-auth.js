@@ -1,5 +1,5 @@
 /* ---------- local profile (name + picture), version check ---------- */
-const APP_VERSION = '3.4.1';
+const APP_VERSION = '3.5.0';
 (function () {
   const btn = $('#authBtn'), av = $('#authView'), box = $('#authActs');
   let P = LS.get('pg_profile', null);
@@ -32,9 +32,9 @@ const APP_VERSION = '3.4.1';
     save.onclick = go; ni.onkeydown = e => { if (e.key === 'Enter') go(); };
     box.append(row, grid, up, ni, save, msg);
     if (P && P.name) {
-      const ex = document.createElement('button'); ex.className = 'pill line sm'; ex.textContent = 'Back up saves'; ex.onclick = () => saveBlob(new Blob([JSON.stringify({ app: 'pigment', profile: P, saved: saved() })], { type: 'application/json' }), 'pigment-backup.json');
+      const ex = document.createElement('button'); ex.className = 'pill line sm'; ex.textContent = 'Back up saves'; ex.onclick = () => saveBlob(new Blob([JSON.stringify({ app: 'pigment', profile: P, saved: saved(), look: (() => { try { return JSON.parse(localStorage.getItem('pigment.look') || 'null'); } catch (e) { return null; } })(), cols: LS.get('pg_cols', []) })], { type: 'application/json' }), 'pigment-backup.json');
       const im = document.createElement('label'); im.className = 'pill line sm'; im.textContent = 'Restore backup'; im.style.cursor = 'pointer'; const fi2 = document.createElement('input'); fi2.type = 'file'; fi2.accept = 'application/json,.json'; fi2.hidden = true; im.appendChild(fi2);
-      fi2.onchange = async () => { try { const j = JSON.parse(await fi2.files[0].text()); if (j.app !== 'pigment' || !Array.isArray(j.saved)) throw 0; const have = new Set(saved().map(x => x.id)); LS.set('pg_saved', saved().concat(j.saved.filter(x => x && x.id && x.colors && !have.has(x.id)))); if (j.profile && j.profile.name) { P = j.profile; LS.set('pg_profile', P); } paint(); updSaved(); if (location.hash === '#saved') initSaved(); open(false); toast('Backup restored'); } catch (e) { msg.textContent = 'That file is not a Pigment backup.'; } };
+      fi2.onchange = async () => { try { const j = JSON.parse(await fi2.files[0].text()); if (j.app !== 'pigment' || !Array.isArray(j.saved)) throw 0; if (j.look) { try { localStorage.setItem('pigment.look', JSON.stringify(j.look)); } catch (e) { } setTimeout(() => location.reload(), 1200); } if (Array.isArray(j.cols)) LS.set('pg_cols', [...new Set(LS.get('pg_cols', []).concat(j.cols))]); const have = new Set(saved().map(x => x.id)); LS.set('pg_saved', saved().concat(j.saved.filter(x => x && x.id && x.colors && !have.has(x.id)))); if (j.profile && j.profile.name) { P = j.profile; LS.set('pg_profile', P); } paint(); updSaved(); if (location.hash === '#saved') initSaved(); open(false); toast('Backup restored'); } catch (e) { msg.textContent = 'That file is not a Pigment backup.'; } };
       const so = document.createElement('button'); so.className = 'authlink'; so.textContent = 'Remove profile (keeps your saved wallpapers)'; so.onclick = () => { P = null; LS.set('pg_profile', null); paint(); open(false); toast('Profile removed'); };
       const r2 = document.createElement('div'); r2.className = 'authrow'; r2.append(ex, im); box.append(r2, so);
     }
