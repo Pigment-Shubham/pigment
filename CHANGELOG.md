@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.2.0
+- 9 new live scenes: Storm Hills, Snowfall, Pixel Dusk, Isometric City, Rose Window (stained glass), Tarot Sun, Star Trails, Rainy Window, Grass Field. Now 81 styles and 2,025 wallpapers.
+
 ## 3.1.1
 - Detail slider now changes all Designer styles (softness, count of shapes).
 
