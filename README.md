@@ -14,6 +14,8 @@ Pigment draws every wallpaper from code, so there are no stock images. Pick a st
 - **Music-reactive** styles that react to a beat or your microphone.
 - **Studio** to make your own: colours, detail, grain, speed, text overlay, calm clock area, widget area, or build from your own photo's colours.
 - **Downloads:** 4K, iPhone and MacBook sizes, light + dark pairs, packs (zip), 16-second seamless loop videos (MP4), and live-wallpaper files for Plash (Mac) and Lively (Windows).
+- **AI wallpaper maker:** ask the assistant to invent something and it composes a one-off wallpaper.
+- **Look button:** light, dark or auto theme, background colours and a moving background. A Set up page explains how to use wallpapers on iPhone, Mac and Windows.
 - Today's pick, favourites, moods, seasonal palettes, share links, a local profile, an AI-style helper and install-as-app (PWA).
 
 ## View it online (GitHub Pages)
@@ -36,7 +38,7 @@ You can also just download `index.html` and open it. Sign-in (Firebase) only wor
 To rebuild after editing `src/`: copy `build3.py` and the parts next to each other and run `python3 build3.py`.
 
 ## Status
-Current version: **3.3.1**. See [CHANGELOG.md](CHANGELOG.md). Tested in a desktop browser only, not yet on real iPhone, Mac or Windows live-wallpaper apps.
+Current version: **3.4.0**. See [CHANGELOG.md](CHANGELOG.md). Tested in a desktop browser only, not yet on real iPhone, Mac or Windows live-wallpaper apps.
 
 ## Licence
 No licence has been chosen yet, so all rights are reserved by the author. Add a `LICENSE` file if you want others to reuse the code.

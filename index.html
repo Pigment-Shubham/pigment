@@ -7,14 +7,14 @@
 [hidden]{display:none!important}html{color-scheme:light}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}
 
 /* Layout: plain white page, big editorial type, one live canvas per view; an accent colour taken from the wallpaper on screen. Single light look by choice. */
-:root{--bg:#ffffff;--fg:#111114;--mute:#6d6d76;--line:#e8e8ed;--soft:#f5f5f7;--accent:#ff6b4a;--display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;--body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light}
+:root{--bg:#ffffff;--fg:#111114;--mute:#6d6d76;--line:#e8e8ed;--soft:#f5f5f7;--accent:#ff6b4a;--card:#ffffff;--onfg:#ffffff;--barbg:rgba(255,255,255,.92);--display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;--body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font:400 16px/1.5 var(--body);margin:0;min-height:100vh;padding-block:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
 :focus-visible{outline:2px solid var(--fg);outline-offset:3px;border-radius:6px}
 .wrap{max-width:1240px;margin:0 auto}
-.bar{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);display:flex;align-items:center;gap:20px;padding:14px 0;margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-top:calc(14px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--line)}
+.bar{position:sticky;top:0;z-index:30;background:var(--barbg);display:flex;align-items:center;gap:20px;padding:14px 0;margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-top:calc(14px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--line)}
 .barin{max-width:1240px;margin:0 auto;width:100%;display:flex;align-items:center;gap:20px}
 .cr{font:400 9.5px/1 var(--display);letter-spacing:.02em;color:var(--mute);opacity:.7;margin-left:-4px;white-space:nowrap;align-self:flex-end;padding-bottom:20px}.cr span{margin-left:3px;font-weight:300}
 .brand{display:flex;align-items:center;gap:10px;font:800 24px/1 var(--display);letter-spacing:-.03em}
@@ -26,13 +26,13 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;paddin
 .nav a::after{content:"";position:absolute;left:12px;right:12px;bottom:3px;height:2px;background:var(--fg);transform:scaleX(0);transform-origin:left;transition:transform .25s}
 .nav a:hover,.nav a.on{color:var(--fg)}
 .nav a.on::after,.nav a:hover::after{transform:scaleX(1)}
-.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--fg);color:#fff;font-weight:700;padding:11px 20px;border-radius:999px;white-space:nowrap;transition:transform .15s,background .2s}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--fg);color:var(--onfg);font-weight:700;padding:11px 20px;border-radius:999px;white-space:nowrap;transition:transform .15s,background .2s}
 .pill:hover{transform:translateY(-1px)}
 .pill:active{transform:scale(.97)}
 .pill.line{background:transparent;color:var(--fg);box-shadow:inset 0 0 0 1.5px var(--line)}
 .pill.line:hover{box-shadow:inset 0 0 0 1.5px var(--fg)}
 .pill.sm{padding:8px 15px;font-size:14px}
-.pill.accent{background:var(--accent)}
+.pill.accent{background:var(--accent);color:#fff}
 .page{padding-block:34px 90px}
 .page[hidden]{display:none}
 .kick{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
@@ -50,7 +50,7 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;paddin
 @media (max-width:860px){.herogrid{grid-template-columns:minmax(0,1fr)}}
 .herocv{position:relative;border-radius:28px;overflow:hidden;background:var(--soft);aspect-ratio:16/10;animation:fade .9s .2s backwards}
 .herocv canvas{width:100%;height:100%;display:block}
-.tag{position:absolute;left:14px;bottom:14px;background:#fff;border-radius:999px;padding:7px 14px;font-weight:700;font-size:13px;display:flex;gap:8px;align-items:center;box-shadow:0 4px 16px rgba(0,0,0,.12)}
+.tag{position:absolute;left:14px;bottom:14px;background:var(--card);border-radius:999px;padding:7px 14px;font-weight:700;font-size:13px;display:flex;gap:8px;align-items:center;box-shadow:0 4px 16px rgba(0,0,0,.12)}
 .tag i{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:blink 1.6s infinite}
 @keyframes blink{50%{opacity:.25}}
 @keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -65,10 +65,10 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;paddin
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .chip{padding:8px 16px;border-radius:999px;font-weight:500;box-shadow:inset 0 0 0 1.5px var(--line);transition:all .2s}
 .chip:hover{box-shadow:inset 0 0 0 1.5px var(--fg)}
-.chip.on{background:var(--fg);color:#fff;box-shadow:none}
+.chip.on{background:var(--fg);color:var(--onfg);box-shadow:none}
 .seg{display:inline-flex;background:var(--soft);border-radius:999px;padding:4px}
 .seg button{padding:7px 16px;border-radius:999px;font-weight:700;font-size:14px;color:var(--mute);transition:all .2s}
-.seg button.on{background:#fff;color:var(--fg);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.seg button.on{background:var(--card);color:var(--fg);box-shadow:0 1px 4px rgba(0,0,0,.12)}
 .gal{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
 .gal.desk{grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
 .card{text-align:left;display:block;width:100%;min-width:0;animation:fade .5s backwards}
@@ -78,12 +78,12 @@ button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;paddin
 .card b{font-weight:700;display:block;line-height:1.25}
 .card small{color:var(--mute)}
 .sw5{display:flex}
-.sw5 i{width:14px;height:14px;border-radius:50%;margin-left:-4px;box-shadow:0 0 0 2px #fff;display:block}
+.sw5 i{width:14px;height:14px;border-radius:50%;margin-left:-4px;box-shadow:0 0 0 2px var(--card);display:block}
 .live{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
 .view{position:fixed;inset:0;z-index:60;background:rgba(17,17,20,.55);display:grid;place-items:center;padding:18px;animation:fadeo .25s}
 .view[hidden]{display:none}
 @keyframes fadeo{from{opacity:0}to{opacity:1}}
-.vbox{background:#fff;border-radius:28px;width:min(1080px,100%);max-height:calc(100vh - 36px);overflow:auto;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);animation:pop .4s cubic-bezier(.2,.9,.3,1.1)}
+.vbox{background:var(--card);border-radius:28px;width:min(1080px,100%);max-height:calc(100vh - 36px);overflow:auto;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);animation:pop .4s cubic-bezier(.2,.9,.3,1.1)}
 @keyframes pop{from{transform:translateY(24px) scale(.97);opacity:0}to{transform:none;opacity:1}}
 @media (max-width:820px){.vbox{grid-template-columns:minmax(0,1fr)}}
 .vstage{background:var(--soft);display:grid;place-items:center;padding:26px;min-height:300px}
@@ -123,17 +123,17 @@ input[type=color]::-moz-color-swatch{border:0}
 .stagebig{background:var(--soft);border-radius:28px;display:grid;place-items:center;padding:30px;min-height:420px;position:sticky;top:90px}
 .stagetop{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;width:100%;margin-bottom:20px}
 .empty{padding:60px 20px;text-align:center;color:var(--mute);border:1.5px dashed var(--line);border-radius:24px;grid-column:1/-1}
-.toast{position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--fg);color:#fff;padding:11px 20px;border-radius:999px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:90;max-width:calc(100vw - 32px);text-align:center}
+.toast{position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--fg);color:var(--onfg);padding:11px 20px;border-radius:999px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:90;max-width:calc(100vw - 32px);text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .foot{padding-block:30px 40px;color:var(--mute);font-size:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-.authbox{max-width:380px;width:100%;background:#fff;border-radius:26px;padding:28px;display:flex;flex-direction:column;gap:12px}
+.authbox{max-width:380px;width:100%;background:var(--card);border-radius:26px;padding:28px;display:flex;flex-direction:column;gap:12px}
 .authbox h3{font-family:var(--display);font-size:26px;letter-spacing:-.02em}
 .authbox p{color:var(--mute);line-height:1.5;margin-bottom:6px}
 #authActs{display:flex;flex-direction:column;gap:10px}
 #authActs .pill{width:100%;padding:13px 20px}
-.newver{position:fixed;left:50%;top:max(14px,env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:95;background:var(--fg);color:#fff;border-radius:999px;padding:8px 8px 8px 20px;display:flex;align-items:center;gap:14px;font-weight:600;max-width:calc(100vw - 24px)}
+.newver{position:fixed;left:50%;top:max(14px,env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:95;background:var(--fg);color:var(--onfg);border-radius:999px;padding:8px 8px 8px 20px;display:flex;align-items:center;gap:14px;font-weight:600;max-width:calc(100vw - 24px)}
 
 .prev{position:fixed;inset:0;z-index:85;background:#0b0b0e;display:grid;place-items:center}
 .prevfr{position:relative;height:100vh;height:100dvh;aspect-ratio:390/844;max-width:100vw;overflow:hidden;background:#000;container-type:size;color:var(--pf,#fff)}
@@ -154,7 +154,7 @@ input[type=color]::-moz-color-swatch{border:0}
 .phome .dock .ic{background:rgba(255,255,255,.28)}
 .prevbar{position:fixed;top:max(12px,env(safe-area-inset-top,0px));left:12px;right:12px;display:flex;justify-content:space-between;z-index:2;pointer-events:none}
 .prevbar .pill{pointer-events:auto;background:rgba(20,20,26,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#fff}
-.ready{position:fixed;left:12px;right:12px;bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:95;background:#fff;border-radius:24px;padding:18px;box-shadow:0 10px 40px rgba(0,0,0,.28);display:flex;flex-direction:column;gap:10px;align-items:stretch;text-align:center}
+.ready{position:fixed;left:12px;right:12px;bottom:max(14px,env(safe-area-inset-bottom,0px));z-index:95;background:var(--card);border-radius:24px;padding:18px;box-shadow:0 10px 40px rgba(0,0,0,.28);display:flex;flex-direction:column;gap:10px;align-items:stretch;text-align:center}
 .ready p{margin:0;font-weight:700}
 
 .aib{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:0;height:58px;padding:0;border:0;border-radius:999px;background:#0d0a1a;color:#fff;cursor:pointer;box-shadow:0 8px 28px rgba(20,10,40,.35),0 0 0 3px #fff;overflow:hidden;font:700 15px var(--body);transition:transform .2s,box-shadow .2s}
@@ -195,11 +195,26 @@ input[type=color]::-moz-color-swatch{border:0}
 .authrow{display:flex;gap:10px}.authrow .pill{flex:1;width:auto!important}
 .authlink{background:none;border:0;color:var(--mute);text-decoration:underline;cursor:pointer;font:inherit;font-size:13px;align-self:center}
 .authmsg{color:#c2321f;font-size:13px;text-align:center;min-height:1em}
+
+:root[data-theme="dark"]{--bg:#0f0f13;--fg:#f2f2f6;--mute:#9b9ba8;--line:#2b2b34;--soft:#1a1a21;--card:#1a1a21;--onfg:#0f0f13;--barbg:rgba(15,15,19,.88);color-scheme:dark}
+@media (prefers-color-scheme:dark){:root[data-theme="auto"]{--bg:#0f0f13;--fg:#f2f2f6;--mute:#9b9ba8;--line:#2b2b34;--soft:#1a1a21;--card:#1a1a21;--onfg:#0f0f13;--barbg:rgba(15,15,19,.88);color-scheme:dark}}
+#bgLive{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:-1;object-fit:cover;opacity:.32;pointer-events:none}
+.lookbtn{width:40px;height:40px;padding:0!important;flex:none}
+.lookpop{position:fixed;right:max(16px,env(safe-area-inset-right,0px));top:70px;z-index:60;width:min(320px,calc(100vw - 32px));background:var(--card);color:var(--fg);border-radius:22px;padding:18px;box-shadow:0 18px 50px rgba(0,0,0,.22),0 0 0 1px var(--line);display:flex;flex-direction:column;gap:14px}
+.lookpop h5{margin:0 0 8px;font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.lookpop .row{display:flex;gap:8px;flex-wrap:wrap}
+.lookpop .sw{width:34px;height:34px;border-radius:50%;border:0;cursor:pointer;box-shadow:inset 0 0 0 1.5px var(--line)}
+.lookpop .sw.on{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--fg)}
+.setup{display:grid;gap:14px;max-width:760px}
+.setup .step{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;background:var(--soft);border-radius:18px;padding:16px}
+.setup .step b.n{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--fg);color:var(--onfg);font-family:var(--display)}
+.setup .step p{margin:0;line-height:1.5}.setup .note{color:var(--mute);font-size:14px;line-height:1.5}
+@media (max-width:560px){.lookpop{top:112px}}
 </style>
 </head><body><noscript>Pigment needs JavaScript. Open this file in Chrome, Edge, Firefox or Safari.</noscript><div class="bar"><div class="barin">
   <a class="brand" href="#home"><span class="dot" id="dot"></span>Pigment</a><span class="cr" aria-label="Copyright Shubham Patel">© <span>Made By Shubham Patel</span></span>
-  <nav class="nav" id="nav" aria-label="Pages"><a href="#home" data-p="home">Home</a><a href="#browse" data-p="browse">Browse</a><a href="#studio" data-p="studio">Studio</a><a href="#saved" data-p="saved">Saved <span id="savedN"></span></a></nav>
-  <a class="pill sm" href="#studio" style="margin-left:6px">Make your own</a>
+  <nav class="nav" id="nav" aria-label="Pages"><a href="#home" data-p="home">Home</a><a href="#browse" data-p="browse">Browse</a><a href="#studio" data-p="studio">Studio</a><a href="#saved" data-p="saved">Saved <span id="savedN"></span></a><a href="#setup" data-p="setup">Set up</a></nav>
+  <button class="pill line sm lookbtn" id="lookBtn" type="button" aria-label="Appearance and background" aria-expanded="false" title="Appearance"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg></button><a class="pill sm" href="#studio" style="margin-left:6px">Make your own</a>
   <button class="pill line sm" id="authBtn" hidden style="gap:7px">Create profile</button>
 </div></div>
 <div class="wrap">
@@ -212,10 +227,10 @@ input[type=color]::-moz-color-swatch{border:0}
       <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="pill accent" href="#browse" id="nBrowse">Browse all wallpapers</a><button class="pill line" id="surprise" type="button">Surprise me</button><a class="pill line" href="#studio">Open the studio</a></div></div>
     <div class="herotoday"><div class="tcap"><div><div class="kick">Today's pick</div><div class="tname" id="heroName">Live</div></div><button class="pill accent sm" id="heroOpen" type="button">Open it</button></div><div class="herocv" id="heroBox"><canvas id="heroCv" width="960" height="600"></canvas></div></div>
   </div>
-  <div class="mq" aria-label="A sample of wallpapers"><div class="tr" id="mq"></div></div>
+  <div class="mq" hidden aria-label="A sample of wallpapers"><div class="tr" id="mq"></div></div>
   <div class="moods" id="moods"></div>
     <div id="favs"></div>
-  <div class="head" id="seasonHead"><div><div class="kick" id="seasonKick"></div><h2 class="h2" style="margin-top:8px">Fresh palettes</h2></div></div><div class="gal" id="seasonGal"></div>
+  <div class="head" id="seasonHead" hidden><div><div class="kick" id="seasonKick"></div><h2 class="h2" style="margin-top:8px">Fresh palettes</h2></div></div><div class="gal" id="seasonGal" hidden></div>
   <div class="head"><div><div class="kick" id="nStyles">Many styles</div><h2 class="h2" style="margin-top:8px">Pick your texture</h2></div><a class="pill line sm" href="#browse">See all</a></div>
   <div class="gal" id="styleGal"></div>
 </section>
@@ -245,6 +260,12 @@ input[type=color]::-moz-color-swatch{border:0}
   </div>
 </section>
 
+<section class="page" id="p-setup" hidden>
+  <div class="head"><div><div class="kick">Set up</div><h2 class="h2" style="margin-top:8px">Use it as your wallpaper</h2></div></div>
+  <div class="chips" id="setupTabs" style="margin-bottom:18px"><button class="chip on" data-s="iphone">iPhone</button><button class="chip" data-s="mac">Mac</button><button class="chip" data-s="win">Windows</button></div>
+  <div class="setup" id="setupBody"></div>
+</section>
+
 <section class="page" id="p-saved" hidden>
   <div class="head"><div><div class="kick">Saved</div><h2 class="h2" style="margin-top:8px">Your collection</h2></div><div class="acts" id="plBox"></div></div>
   <div class="gal" id="savedGal"></div>
@@ -253,6 +274,8 @@ input[type=color]::-moz-color-swatch{border:0}
 <footer class="foot"><span>Pigment. Every wallpaper is drawn in your browser.</span><span id="footNote">Saved designs stay on this device.</span><span id="ver"></span></footer>
 </div>
 
+<canvas id="bgLive" hidden aria-hidden="true" width="480" height="270"></canvas>
+<div class="lookpop" id="lookPop" hidden role="dialog" aria-label="Appearance"></div>
 <div class="view" id="view" hidden role="dialog" aria-modal="true" aria-label="Wallpaper preview"><div class="vbox"><div class="vstage" id="vStage"></div><div class="vinfo" id="vInfo"></div></div></div>
 <div class="view" id="authView" hidden role="dialog" aria-modal="true" aria-label="Sign in"><div class="vbox authbox">
   <h3 id="authTitle">Create your profile</h3><p id="authSub"></p>
@@ -1277,6 +1300,25 @@ function drawGrassField(ctx, w, h, d, t, o) {
   B.forEach(b => { const y = hz + (h - hz) * (.02 + b.z * 1.0), s = .25 + b.z * 1.4, bl = m * .06 * s * (.7 + .6 * b.c), sw = Math.sin(a * b.k + b.ph + b.x / w * 6.283) * bl * .35 + Math.sin(a + b.x / w * 6.283 * 2) * bl * .15; ctx.beginPath(); ctx.moveTo(b.x, y); ctx.quadraticCurveTo(b.x + sw * .4, y - bl * .6, b.x + sw, y - bl); ctx.lineWidth = Math.max(1, m * .0022 * s * 1.6); ctx.strokeStyle = mix(mix(C[1], '#06140c', .45 - b.z * .35), mix(C[2], '#d9ff9a', .35), b.c * .5 + b.z * .4); ctx.stroke(); });
 }
 
+/* ---------- custom: a one-off composition built from a list of layers (invented by the assistant) ---------- */
+function drawRecipe(ctx, w, h, d, t, o) {
+  const C = d.colors, a = t / 16 * Math.PI * 2, m = Math.max(w, h), mn = Math.min(w, h), L0 = d.recipe, L = Array.isArray(L0) && L0.length ? L0 : [{ type: 'sky' }, { type: 'glow' }, { type: 'waves' }];
+  const col = v => typeof v === 'number' ? C[((Math.round(v) % 5) + 5) % 5] : (typeof v === 'string' && /^#[0-9a-fA-F]{6}$/.test(v) ? v : C[1]);
+  const nm = (v, lo, hi, df) => { v = parseFloat(v); return isFinite(v) ? Math.min(hi, Math.max(lo, v)) : df; };
+  ctx.fillStyle = C[0]; ctx.fillRect(0, 0, w, h);
+  L.slice(0, 12).forEach((l, li) => {
+    if (!l || typeof l !== 'object') return; const R = rng((d.seed || 1) + li * 101), ty = String(l.type);
+    if (ty === 'sky') { const an = nm(l.angle, 0, 360, 90) * Math.PI / 180, dx = Math.cos(an) * m / 2, dy = Math.sin(an) * m / 2, g = ctx.createLinearGradient(w / 2 - dx, h / 2 - dy, w / 2 + dx, h / 2 + dy); g.addColorStop(0, col(l.from == null ? 0 : l.from)); g.addColorStop(1, col(l.to == null ? 2 : l.to)); ctx.fillStyle = g; ctx.fillRect(0, 0, w, h); }
+    else if (ty === 'glow') { const n = Math.round(nm(l.n, 1, 8, 3)), sz = nm(l.size, .1, 1.2, .5), al = nm(l.alpha, .05, 1, .55); for (let i = 0; i < n; i++) { const x = (R() + Math.sin(a * (1 + i % 2) + i * 2) * .05) * w, y = (R() + Math.cos(a + i) * .05) * h, r = m * sz * (.6 + .5 * R()), c = col(l.color == null ? i + 1 : l.color + i), g = ctx.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, rgba(c, al)); g.addColorStop(1, rgba(c, 0)); ctx.fillStyle = g; ctx.fillRect(0, 0, w, h); } }
+    else if (ty === 'orb') { const x = nm(l.x, 0, 1, .5) * w + Math.sin(a) * w * .01, y = nm(l.y, 0, 1, .4) * h + Math.cos(a) * h * .01, r = nm(l.r, .03, .5, .14) * mn, c = col(l.color == null ? 3 : l.color), g = ctx.createRadialGradient(x, y, r * .6, x, y, r * (nm(l.halo, 1, 6, 3))); g.addColorStop(0, rgba(c, .5)); g.addColorStop(1, rgba(c, 0)); ctx.fillStyle = g; ctx.fillRect(0, 0, w, h); const s = ctx.createRadialGradient(x - r * .3, y - r * .35, r * .05, x, y, r); s.addColorStop(0, mix(c, '#ffffff', .7)); s.addColorStop(.5, c); s.addColorStop(1, mix(c, '#000000', .35)); ctx.fillStyle = s; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); }
+    else if (ty === 'stars') { const n = Math.round(nm(l.n, 10, 300, 90)), ymax = nm(l.ymax, .2, 1, .7); for (let i = 0; i < n; i++) { const x = R() * w, y = R() * h * ymax, ph = R() * 6.28, br = .3 + .7 * R(), tw = .5 + .5 * Math.sin(a * (1 + i % 2) + ph); ctx.fillStyle = rgba('#ffffff', br * (.4 + .6 * tw)); ctx.beginPath(); ctx.arc(x, y, Math.max(.6, m * (.0006 + .0012 * br)), 0, 7); ctx.fill(); } }
+    else if (ty === 'waves') { const n = Math.round(nm(l.n, 1, 8, 4)), by = nm(l.y, .1, .95, .55), amp = nm(l.amp, .01, .2, .05); for (let i = 0; i < n; i++) { const ph = R() * 6.28, k = 1 + (i % 3), y0 = h * (by + i * (1 - by) / n * .9), c = col(l.color == null ? i + 1 : l.color + i); ctx.fillStyle = rgba(c, .88); ctx.beginPath(); ctx.moveTo(0, h); for (let x = 0; x <= w + 2; x += w / 70) ctx.lineTo(x, y0 + Math.sin(x / w * 6.283 * k + a * (i % 2 ? 1 : -1) + ph) * h * amp * (.6 + i * .15)); ctx.lineTo(w, h); ctx.closePath(); ctx.fill(); } }
+    else if (ty === 'mountains') { const n = Math.round(nm(l.n, 1, 6, 3)), by = nm(l.y, .3, .95, .65), jag = nm(l.jag, .02, .3, .09); for (let i = 0; i < n; i++) { const ph = R() * 9, y0 = h * (by + i * .06), c = mix(col(l.color == null ? 2 : l.color), C[0], .18 + i * .2); ctx.fillStyle = c; ctx.beginPath(); ctx.moveTo(0, h); for (let x = 0; x <= w + 2; x += w / 80) { const nx = x / w; ctx.lineTo(x, y0 - h * jag * (Math.abs(Math.sin(nx * 5 + ph)) + .5 * Math.abs(Math.sin(nx * 13 + ph * 2)) + .25 * Math.abs(Math.sin(nx * 29 + ph)))); } ctx.lineTo(w, h); ctx.closePath(); ctx.fill(); } }
+    else if (ty === 'rings') { const n = Math.round(nm(l.n, 2, 12, 7)), cx = nm(l.x, 0, 1, .5) * w, cy = nm(l.y, 0, 1, .5) * h; ctx.globalCompositeOperation = 'lighter'; for (let i = 0; i < n; i++) { const u = (i / n + t / 16) % 1, r = u * m * .8 + m * .02, c = col(l.color == null ? i + 1 : l.color + i); ctx.beginPath(); ctx.arc(cx, cy, r, 0, 7); ctx.lineWidth = m * .03 * (.4 + u); ctx.strokeStyle = rgba(c, Math.sin(Math.PI * u) * .22); ctx.stroke(); } ctx.globalCompositeOperation = 'source-over'; }
+    else if (ty === 'rays') { const n = Math.round(nm(l.n, 4, 40, 16)) * 2, cx = nm(l.x, 0, 1, .5) * w, cy = nm(l.y, 0, 1.2, .6) * h, c = col(l.color == null ? 3 : l.color), rot = t / 16 * 6.283 / (n / 2); ctx.fillStyle = rgba(c, nm(l.alpha, .05, .8, .2)); for (let i = 0; i < n; i += 2) { const a0 = i / n * 6.283 + rot, a1 = a0 + 6.283 / n; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(a0) * m * 2, cy + Math.sin(a0) * m * 2); ctx.lineTo(cx + Math.cos(a1) * m * 2, cy + Math.sin(a1) * m * 2); ctx.closePath(); ctx.fill(); } }
+  });
+}
+
 const STYLES = [
   ['grain', 'Grain', drawGrain, true, 'Soft colour fields with film grain', 'Sorbet'], 
   ['dunes', 'Dunes', drawDunes, true, 'Layered hills under a low sun', 'Lagoon'], ['halftone', 'Halftone', drawHalftone, true, 'A dot screen that breathes', 'Candy'],
@@ -1324,7 +1366,8 @@ const STYLES = [
 const PHOTO_ENTRY = ['photo', 'Photo', drawPhoto, false, 'Your own picture, fitted to the screen', 'Sorbet'];
 /* vibes: browse by look and feel */
 const VIBES = [['Soft', 'grain silk marble frosted paper aurora waves bubbles'], ['Retro', 'sungrid vinyl sunburst halftone'], ['Nature', 'dunes contours ripples fireflies aurora'], ['Tech', 'hexgrid constellation orbits metaballs bloom'], ['Craft', 'paper mosaic shapes bars'], ['Music', 'eq pulse vinyl wavebeat'], ['Scenes', 'stormhills lake sea blossom fireworks warp aurora'], ['Designer', 'liquid frosted grain silk'], ['Pigment', 'brandlogo brandtype branddrops']];
-const styleOf = k => k === 'photo' ? PHOTO_ENTRY : STYLES.find(s => s[0] === k);
+const CUSTOM_ENTRY = ['custom', 'Custom', drawRecipe, true, 'A one-off composition invented by the assistant', 'Sorbet'];
+const styleOf = k => k === 'photo' ? PHOTO_ENTRY : k === 'custom' ? CUSTOM_ENTRY : STYLES.find(s => s[0] === k);
 /* Calm strip along the top edge so a Mac menu bar stays readable on desktop wallpapers. */
 function menuBand(ctx, w, h, c) { const s = h * .034, f = h * .09, g = ctx.createLinearGradient(0, 0, 0, f); g.addColorStop(0, c); g.addColorStop(s / f, c); g.addColorStop(1, rgba(c, 0)); ctx.fillStyle = g; ctx.fillRect(0, 0, w, f); }
 function render(ctx, w, h, d, t, o) { o = Object.assign({ detail: 50, grain: 45, speed: 1 }, d.o || {}, o || {}); ctx.save(); styleOf(d.style)[2](ctx, w, h, d, (t || 0) * o.speed, o); ctx.restore(); if (o.menubar) { ctx.save(); menuBand(ctx, w, h, d.colors[0]); ctx.restore(); } if (o.text) drawText(ctx, w, h, d.colors, o); if (o.widgets && w < h) { const c = d.colors[0], g = ctx.createLinearGradient(0, h * .1, 0, h * .46); g.addColorStop(0, rgba(c, 0)); g.addColorStop(.25, rgba(c, .62)); g.addColorStop(.75, rgba(c, .62)); g.addColorStop(1, rgba(c, 0)); ctx.save(); ctx.fillStyle = g; ctx.fillRect(0, h * .1, w, h * .36); ctx.restore(); } if (o.calm && w < h) { const c = d.colors[0], g = ctx.createLinearGradient(0, 0, 0, h * .4); g.addColorStop(0, rgba(c, .78)); g.addColorStop(.55, rgba(c, .4)); g.addColorStop(1, rgba(c, 0)); ctx.save(); ctx.fillStyle = g; ctx.fillRect(0, 0, w, h * .4); ctx.restore(); } }
@@ -1433,7 +1476,7 @@ const LOOP = 16;
 function liveHTML(d) {
   const helpers = { clamp, h2r, r2h, rgba, mix, lum, ramp, rng, hash, vnoise, makeCanvas, grainTile, menuBand }, fnn = styleOf(d.style)[2];
   const src = Object.entries(helpers).map(([n, f]) => { const t = f.toString(); return t.startsWith('function') ? t : 'const ' + n + ' = ' + t + ';'; }).join('\n') + '\n' + fnn.toString();
-  const D = { style: d.style, colors: d.colors, seed: d.seed, o: Object.assign({ detail: 50, grain: 45 }, d.o || {}, d.style === 'daysky' ? { realtime: true } : {}) };
+  const D = { style: d.style, colors: d.colors, seed: d.seed, recipe: d.recipe, o: Object.assign({ detail: 50, grain: 45 }, d.o || {}, d.style === 'daysky' ? { realtime: true } : {}) };
   return '<!doctype html><html><head><meta charset="utf-8"><title>' + d.name.replace(/[<>&]/g, '') + ' (Pigment live wallpaper)</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{margin:0;height:100%;overflow:hidden;background:' + d.colors[0] + '}canvas{display:block;width:100vw;height:100vh;object-fit:cover}</style></head><body><canvas id="c"></canvas><script>\nlet GRAIN = null;\n' + src +
     '\nconst D = ' + JSON.stringify(D).replace(/</g, '\\u003c') + ', cv = document.getElementById("c"), ctx = cv.getContext("2d"), t0 = performance.now(); let last = 0;\ncv.width = 3840; cv.height = 2160;\nconst MENUBAR = true; // set to false to remove the calm strip behind the Mac menu bar\nlet nf = 0, acc = 0; // if drawing is slow, drop to 1440p so it stays smooth\nfunction frame(now) { requestAnimationFrame(frame); if (now - last < 33) return; last = now; const ts = performance.now(); ctx.save(); ' + fnn.name + '(ctx, cv.width, cv.height, D, (now - t0) / 1000 * (D.o.speed || 1), D.o); ctx.restore(); if (nf < 20) { acc += performance.now() - ts; if (++nf === 20 && acc / 20 > 40) { cv.width = 2560; cv.height = 1440; } } if (MENUBAR) { ctx.save(); menuBand(ctx, cv.width, cv.height, D.colors[0]); ctx.restore(); } }\nrequestAnimationFrame(frame);\n<\/script></body></html>';
 }
@@ -1698,19 +1741,61 @@ $('#stDl').onclick = () => download(stD(), ST.dev, $('#stSize').value); if (TOUC
 $('#surprise').onclick = () => { const live = ALL.filter(a => styleOf(a.style)[3]), pl = PALS[Math.floor(Math.random() * PALS.length)], b = live[Math.floor(Math.random() * live.length)]; openView(Object.assign({}, b, { colors: pl[1].slice(), seed: Math.floor(Math.random() * 9000) + 1, name: pl[0] + ' ' + styleOf(b.style)[1], o: {} })); };
 { const ft = $('#footNote'), lb = document.createElement('button'); lb.className = 'authlink'; const sync = () => { lb.textContent = 'Battery saver: ' + (LITE ? 'on' : 'off'); }; sync(); lb.onclick = () => { LITE = !LITE; LS.set('pg_lite', LITE); sync(); toast(LITE ? 'Battery saver on: animations run gently.' : 'Battery saver off.'); }; ft.after(lb); }
 /* ---------- router ---------- */
-const PAGES = ['home', 'browse', 'studio', 'saved'];
+const PAGES = ['home', 'browse', 'studio', 'saved', 'setup'];
 function route() {
   let h = location.hash.slice(1); const shared = /^d-/.test(h) ? decodeDesign(h) : null; if (!PAGES.includes(h)) h = 'home';
   PAGES.forEach(p => { $('#p-' + p).hidden = p !== h; }); $$('#nav a').forEach(a => a.classList.toggle('on', a.dataset.p === h));
   ['hero', 'studio'].forEach(stopAnim);
-  if (h === 'home') initHome(); else if (h === 'browse') initBrowse(); else if (h === 'studio') buildStudio(); else initSaved();
+  if (h === 'home') initHome(); else if (h === 'browse') initBrowse(); else if (h === 'studio') buildStudio(); else if (h === 'setup') initSetup(); else initSaved();
   if (shared) openView(shared);
 }
 window.addEventListener('hashchange', () => { route(); window.scrollTo(0, 0); });
 updSaved(); route();
 
+/* ---------- appearance (theme + background) and the set-up guide ---------- */
+function initSetup() {
+  const T = {
+    iphone: [['Pick a wallpaper', 'Open one in Pigment, choose iPhone, then tap Save image (or Download). It saves at full resolution.'], ['Add it in Settings', 'On your iPhone open Settings, then Wallpaper, then Add New Wallpaper, then Photos, and choose the image.'], ['Set it', 'Tap Add, then Set as Wallpaper Pair (or customise Lock Screen and Home Screen separately).']],
+    mac: [['Still wallpaper', 'Download it, then open System Settings, then Wallpaper, then Add Photo and choose the file.'], ['Live wallpaper', 'Install Plash, a free app that shows a web page as your wallpaper. In Pigment open a live wallpaper and tap "Live file (.html)".'], ['Add it to Plash', 'Open Plash from the menu bar, choose Add, and pick the downloaded .html file. It runs behind your windows.']],
+    win: [['Still wallpaper', 'Download it, then right-click the image and choose Set as desktop background.'], ['Live wallpaper', 'Install Lively Wallpaper, a free app from the Microsoft Store. In Pigment open a live wallpaper and tap "Live file (.html)" or "Seamless loop video".'], ['Add it to Lively', 'Open Lively, drag the downloaded file onto its window, then click it to set it as your wallpaper.']]
+  };
+  const note = { iphone: 'iPhone only allows still images for custom wallpapers, so live styles are saved as a still.', mac: 'Plash and Lively are separate free apps made by other people, not by Pigment.', win: 'Plash and Lively are separate free apps made by other people, not by Pigment.' };
+  const body = $('#setupBody'), tabs = $$('#setupTabs .chip');
+  const show = k => { tabs.forEach(b => b.classList.toggle('on', b.dataset.s === k)); body.textContent = ''; T[k].forEach(([h, p], i) => { const s = document.createElement('div'); s.className = 'step'; const n = document.createElement('b'); n.className = 'n'; n.textContent = i + 1; const d = document.createElement('div'); const t = document.createElement('b'); t.textContent = h; const q = document.createElement('p'); q.textContent = p; d.append(t, q); s.append(n, d); body.appendChild(s); }); const nt = document.createElement('p'); nt.className = 'note'; nt.textContent = note[k]; body.appendChild(nt); };
+  tabs.forEach(b => b.onclick = () => show(b.dataset.s)); const ua = navigator.userAgent; show(/iPhone|iPad/.test(ua) ? 'iphone' : /Windows/.test(ua) ? 'win' : /Mac/.test(ua) ? 'mac' : 'iphone');
+}
+(function () {
+  const KEY = 'pigment.look', st = { theme: 'auto', tint: '', live: '' };
+  try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) { }
+  const root = document.documentElement, bgc = $('#bgLive'), pop = $('#lookPop'), btn = $('#lookBtn'), mq = window.matchMedia ? matchMedia('(prefers-color-scheme: dark)') : null;
+  const TINTS = [['Plain', '', ''], ['Cream', '#fbf6ec', '#17140f'], ['Mint', '#eef8f2', '#0e1a15'], ['Sky', '#eef4fc', '#0e1522'], ['Lilac', '#f3effb', '#17122a'], ['Blush', '#fcf0f1', '#201215']];
+  const LIVES = [['Off', ''], ['Silk', 'silk'], ['Aurora', 'aurora'], ['Liquid', 'liquid'], ['Metaballs', 'metaballs']];
+  const dark = () => st.theme === 'dark' || (st.theme === 'auto' && mq && mq.matches), save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) { } };
+  function apply() {
+    root.dataset.theme = st.theme; const t = TINTS.find(x => x[0] === st.tint);
+    if (t && t[1]) root.style.setProperty('--bg', dark() ? t[2] : t[1]); else root.style.removeProperty('--bg');
+    stopAnim('bg'); const ls = LIVES.find(x => x[0] === st.live);
+    if (ls && ls[1] && styleOf(ls[1]) && !reduced) { const pn = dark() ? 'Midnight' : 'Cotton', d = ALL.find(a => a.style === ls[1] && a.pal === pn) || ALL.find(a => a.style === ls[1]); bgc.hidden = false; bgc.style.opacity = dark() ? .5 : .32; paintTo(bgc, d, 2); startAnim('bg', bgc, () => d, 14); }
+    else bgc.hidden = true;
+  }
+  function build() {
+    pop.textContent = '';
+    const sec = (h, fn) => { const d = document.createElement('div'), t = document.createElement('h5'); t.textContent = h; const r = document.createElement('div'); r.className = 'row'; fn(r); d.append(t, r); pop.appendChild(d); };
+    sec('Theme', r => { const g = document.createElement('div'); g.className = 'seg sm'; [['auto', 'Auto'], ['light', 'Light'], ['dark', 'Dark']].forEach(([v, l]) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = l; b.className = st.theme === v ? 'on' : ''; b.onclick = () => { st.theme = v; save(); apply(); build(); }; g.appendChild(b); }); r.appendChild(g); });
+    sec('Background colour', r => TINTS.forEach(([n, l, dk]) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'sw' + (st.tint === n || (!st.tint && !l) ? ' on' : ''); b.title = n; b.setAttribute('aria-label', n + ' background'); b.style.background = l ? (dark() ? dk : l) : 'var(--bg)'; b.onclick = () => { st.tint = l ? n : ''; save(); apply(); build(); }; r.appendChild(b); }));
+    sec('Moving background', r => LIVES.forEach(([n]) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'chip' + ((st.live || 'Off') === n ? ' on' : ''); b.textContent = n; b.onclick = () => { st.live = n === 'Off' ? '' : n; save(); apply(); build(); }; r.appendChild(b); }));
+  }
+  const close = () => { pop.hidden = true; btn.setAttribute('aria-expanded', 'false'); };
+  btn.onclick = e => { e.stopPropagation(); if (pop.hidden) { build(); pop.hidden = false; btn.setAttribute('aria-expanded', 'true'); } else close(); };
+  pop.addEventListener('click', e => e.stopPropagation());
+  document.addEventListener('click', e => { if (!pop.hidden && !pop.contains(e.target) && e.target !== btn) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !pop.hidden) close(); });
+  if (mq && mq.addEventListener) mq.addEventListener('change', () => { if (st.theme === 'auto') apply(); });
+  apply();
+})();
+
 /* ---------- local profile (name + picture), version check ---------- */
-const APP_VERSION = '3.3.1';
+const APP_VERSION = '3.4.0';
 (function () {
   const btn = $('#authBtn'), av = $('#authView'), box = $('#authActs');
   let P = LS.get('pg_profile', null);
@@ -1820,7 +1905,7 @@ setTimeout(() => {
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden && $('#view').hidden && $('#prev').hidden) toggle(false); });
   function hello() {
     bubble('a', "Hi! Tell me what you want and I'll find or make it: a colour, a mood, a place, a style. Say if it should move or stay still, and whether it's for iPhone or MacBook.");
-    ['Calm teal northern lights, live', 'Neon city night for my MacBook', 'Soft pastel, still, for iPhone', 'Something like a forest at dawn'].forEach(t => { const c = document.createElement('button'); c.type = 'button'; c.textContent = t; c.onclick = () => { inp.value = t; panel.querySelector('#aiForm').requestSubmit(); }; chips.appendChild(c); });
+    ['Invent something new for me', 'Calm teal northern lights, live', 'Neon city night for my MacBook', 'Soft pastel, still, for iPhone', 'Something like a forest at dawn'].forEach(t => { const c = document.createElement('button'); c.type = 'button'; c.textContent = t; c.onclick = () => { inp.value = t; panel.querySelector('#aiForm').requestSubmit(); }; chips.appendChild(c); });
   }
   /* ----- result card ----- */
   function resultCard(spec) {
@@ -1847,20 +1932,36 @@ setTimeout(() => {
     draw(); return card;
   }
   /* ----- turn a request into designs ----- */
-  const STY = Object.fromEntries(STYLES.map(s => [s[0], s]));
+  const STY = Object.fromEntries(STYLES.map(s => [s[0], s])); STY.custom = styleOf('custom');
+  const RT = ['sky', 'glow', 'orb', 'stars', 'waves', 'mountains', 'rings', 'rays'];
+  function cleanRecipe(r) { if (!Array.isArray(r)) return autoRecipe(''); const out = r.filter(l => l && RT.includes(l.type)).slice(0, 10).map(l => { const o = { type: l.type }; ['from', 'to', 'color'].forEach(k => { if (l[k] != null) o[k] = (typeof l[k] === 'string' && HEX.test(l[k])) ? l[k] : Math.round(num(l[k], 0, 4, 1)); }); ['angle', 'n', 'size', 'alpha', 'x', 'y', 'r', 'halo', 'ymax', 'amp', 'jag'].forEach(k => { if (l[k] != null && isFinite(parseFloat(l[k]))) o[k] = parseFloat(l[k]); }); return o; }); return out.length >= 2 ? out : autoRecipe(''); }
+  /* invent a layered composition from keywords (used when Claude is not available, and as a fallback) */
+  function autoRecipe(text, seed) {
+    const t = ' ' + String(text).toLowerCase() + ' ', rnd = rngSeed(seed || [...t].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 11)), L = [{ type: 'sky', angle: 90, from: 0, to: rnd() < .5 ? 2 : 1 }];
+    const has = re => re.test(t);
+    if (has(/night|star|moon|space|galaxy|dark|midnight|sky/)) { L.push({ type: 'stars', n: 120 + Math.floor(rnd() * 120) }, { type: 'orb', x: .25 + rnd() * .5, y: .2 + rnd() * .2, r: .08 + rnd() * .06, color: 4, halo: 4 }); }
+    else if (has(/sun|sunset|sunrise|dawn|dusk|warm|golden/)) { L.push({ type: 'rays', n: 10 + Math.floor(rnd() * 14), y: .62, alpha: .16 }, { type: 'orb', x: .5, y: .6, r: .14 + rnd() * .06, color: 3, halo: 3.5 }); }
+    else if (has(/glow|neon|bright|party|electric/)) { L.push({ type: 'glow', n: 4, size: .55, alpha: .7 }, { type: 'rings', n: 8, x: .5, y: .5 }); }
+    else { L.push({ type: 'glow', n: 3 + Math.floor(rnd() * 3), size: .45 + rnd() * .3 }, { type: 'orb', x: .3 + rnd() * .4, y: .25 + rnd() * .3, r: .06 + rnd() * .08, color: 3 }); }
+    if (has(/sea|ocean|beach|wave|water|lake|river|surf/)) L.push({ type: 'waves', n: 4 + Math.floor(rnd() * 2), y: .55, amp: .045 });
+    else if (has(/mountain|forest|hill|valley|alps|tree|woods|nature/)) L.push({ type: 'mountains', n: 3 + Math.floor(rnd() * 2), y: .62, jag: .1 + rnd() * .08 });
+    else if (rnd() < .5) L.push({ type: 'waves', n: 3 + Math.floor(rnd() * 3), y: .6 + rnd() * .1, amp: .035 + rnd() * .03 }); else L.push({ type: 'mountains', n: 3, y: .66, jag: .08 + rnd() * .1 });
+    return L;
+  }
+  function rngSeed(n) { let x = n >>> 0 || 1; return () => { x ^= x << 13; x >>>= 0; x ^= x >>> 17; x ^= x << 5; x >>>= 0; return x / 4294967296; }; }
   function makeDesign(s) {
     const st = STY[s.style] ? s.style : 'grain'; let cols = Array.isArray(s.colors) && s.colors.length >= 5 && s.colors.slice(0, 5).every(c => HEX.test(c)) ? s.colors.slice(0, 5).map(c => c.toLowerCase()) : null, pal = s.palette && PALS.find(p => p[0].toLowerCase() === String(s.palette).toLowerCase());
     if (!cols) cols = (pal || PALS[Math.floor(Math.random() * PALS.length)])[1].slice();
     if (/^(aurora|stardust)$/.test(st) && lum(cols[0]) > .5) cols = [cols[4], cols[1], cols[2], cols[3], cols[0]].map(c => c);
     const o = { detail: Math.round(num(s.detail, 0, 100, 50)), grain: Math.round(num(s.grain, 0, 100, 45)), speed: num(s.speed, .25, 2, 1) };
-    return { style: st, colors: cols, seed: Number.isInteger(s.seed) ? s.seed : 1 + Math.floor(Math.random() * 900), o, name: String(s.name || (pal ? pal[0] + ' ' : '') + STY[st][1]).slice(0, 32), pal: pal ? pal[0] : null };
+    return { style: st, recipe: st === 'custom' ? cleanRecipe(s.recipe) : undefined, colors: cols, seed: Number.isInteger(s.seed) ? s.seed : 1 + Math.floor(Math.random() * 900), o, name: String(s.name || (pal ? pal[0] + ' ' : '') + STY[st][1]).slice(0, 32), pal: pal ? pal[0] : null };
   }
   /* Claude-powered path (only exists where the page is given Claude) */
   async function getSample() { if (sampleChecked) return sampleFn; sampleChecked = true; try { sampleFn = window.claude && window.claude.use ? await window.claude.use('sample') : null; } catch (e) { sampleFn = null; } return sampleFn; }
   async function askClaude(sample, text) {
     const sty = STYLES.map(s => s[0] + ' (' + s[1] + '): ' + s[4] + (s[3] ? ' [moves]' : ' [still only]')).join('\n'), pal = PALS.map(p => p[0] + ': ' + p[1].join(' ')).join('\n');
     const convo = history.slice(-6).map(h => (h.who === 'u' ? 'Person: ' : 'Assistant: ') + h.text).join('\n');
-    const prompt = `You are the assistant inside Pigment, a wallpaper app that draws wallpapers in code. Turn the person's request into 2 or 3 wallpaper designs using ONLY these styles:\n${sty}\n\nExisting palettes (background first, then 4 colours):\n${pal}\n\nRules:\n- Reply with ONLY a JSON object, no markdown, in this shape: {"reply":"one or two friendly sentences","wallpapers":[{"name":"2-3 word name","style":"<style key>","palette":"<palette name or null>","colors":["#bg","#c1","#c2","#c3","#c4"],"speed":1,"detail":50,"grain":45,"live":true,"device":"phone"}]}\n- Prefer custom "colors" that match the request (valid #rrggbb); first colour is the background. aurora and stardust need a dark background. Use "palette" with colors set to null only if an existing palette fits perfectly.\n- speed is 0.25 to 2 (calm/slow about 0.5, energetic about 1.5). detail and grain are 0 to 100. grain only matters for the grain style.\n- live is false if they ask for still, static, normal or printable; true otherwise when the style moves. device is "phone" or "desk" (MacBook or computer); if unsure use "${curDev}".\n- If they ask for something these styles cannot draw (a photo, a character, text), say so in the reply and give the closest abstract wallpapers.\n- Give the options clearly different looks.\n- If the person is NOT asking for new wallpapers (for example thanks, \"no more\", \"that's enough\", a yes/no, a question about the app, or small talk), return an empty wallpapers array and just answer in the reply. Never add wallpapers they did not ask for.\n\nConversation so far:\n${convo}\nPerson: ${text}`;
+    const prompt = `You are the assistant inside Pigment, a wallpaper app that draws wallpapers in code. Turn the person's request into 2 or 3 wallpaper designs using ONLY these styles:\n${sty}\n\nExisting palettes (background first, then 4 colours):\n${pal}\n\nRules:\n- Reply with ONLY a JSON object, no markdown, in this shape: {"reply":"one or two friendly sentences","wallpapers":[{"name":"2-3 word name","style":"<style key>","palette":"<palette name or null>","colors":["#bg","#c1","#c2","#c3","#c4"],"speed":1,"detail":50,"grain":45,"live":true,"device":"phone"}]}\n- Prefer custom "colors" that match the request (valid #rrggbb); first colour is the background. aurora and stardust need a dark background. Use "palette" with colors set to null only if an existing palette fits perfectly.\n- speed is 0.25 to 2 (calm/slow about 0.5, energetic about 1.5). detail and grain are 0 to 100. grain only matters for the grain style.\n- live is false if they ask for still, static, normal or printable; true otherwise when the style moves. device is "phone" or "desk" (MacBook or computer); if unsure use "${curDev}".\n- If they ask for something these styles cannot draw (a photo, a character, text), say so in the reply and give the closest abstract wallpapers.\n- You may also invent a one-off composition: set "style":"custom" and add "recipe": an array of 3 to 8 layers drawn bottom to top, each {"type":...} using only these types and optional numbers: sky {angle 0-360, from 0-4, to 0-4}; glow {n 1-8, size 0.1-1.2, alpha 0.05-1, color 0-4}; orb {x 0-1, y 0-1, r 0.03-0.5, color 0-4, halo 1-6}; stars {n 10-300, ymax 0.2-1}; waves {n 1-8, y 0.1-0.95, amp 0.01-0.2, color 0-4}; mountains {n 1-6, y 0.3-0.95, jag 0.02-0.3, color 0-4}; rings {n 2-12, x, y, color}; rays {n 4-40, x, y, alpha, color}. Colour numbers 0-4 index the wallpaper\"s own five colours (0 is the background). Always start with a sky layer. When the person asks you to invent, create or design something new or unique, make at least one custom wallpaper, and make its composition match their idea.\n- Give the options clearly different looks.\n- If the person is NOT asking for new wallpapers (for example thanks, \"no more\", \"that's enough\", a yes/no, a question about the app, or small talk), return an empty wallpapers array and just answer in the reply. Never add wallpapers they did not ask for.\n\nConversation so far:\n${convo}\nPerson: ${text}`;
     const r = await sample(prompt, { cache: false, modelTier: 'default' }); const m = /\{[\s\S]*\}/.exec(r && r.text || ''); if (!m) throw new Error('bad reply'); const j = JSON.parse(m[0]);
     if (!Array.isArray(j.wallpapers)) throw new Error('no wallpapers'); return { reply: String(j.reply || 'Here you go.'), items: j.wallpapers.slice(0, 3).map(w => ({ d: makeDesign(w), live: w.live !== false, device: w.device === 'desk' ? 'desk' : 'phone' })) };
   }
@@ -1869,7 +1970,7 @@ setTimeout(() => {
   const ST = { stormhills: 'storm rain thunder lightning clouds hills weather', snowfall: 'snow winter pine trees moon cosy', pixeldusk: 'pixel 8-bit retro game sunset landscape', isocity: 'isometric city buildings skyline town', rosewindow: 'stained glass rose window church cathedral', tarot: 'tarot poster sun mystic vintage', startrails: 'star trails night sky long exposure astro', rainwindow: 'rainy window rain glass bokeh lofi cozy', grassfield: 'grass field meadow wind nature green', meshgrad: 'mesh gradient blurry soft colourful apple ios', liquid: 'liquid satin ribbon silk flow glossy', gloworb: 'orb glow sphere planet halo', softwaves: 'soft waves hills layers macos sonoma', prism: 'prism glass frosted panes', petals: 'petal bloom flower glow', spheres: 'spheres pebbles balls 3d soft', aurarings: 'rings aura ripple pulse glow', grain: 'grain grainy gradient soft film blur aura minimal', ridges: 'ridge mountain lines signal mountains terrain', dunes: 'dunes hills desert landscape sunset layers', halftone: 'halftone dots dotted retro comic pop', aurora: 'aurora northern lights sky glow', ripples: 'ripple water drops rings circles rain', contours: 'contour topographic topo map lines', waves: 'waves ocean sea flowing lines', bubbles: 'bubbles bubble soap glass floating', stardust: 'stars space galaxy night nebula cosmic', mosaic: 'mosaic tiles squares pixels grid', bars: 'bars equalizer pills stripes music', bloom: 'flower sunflower spiral bloom floral petals', spiro: 'spirograph spiral loops geometric curves', opart: 'optical checker illusion trippy psychedelic', shapes: 'shapes bauhaus geometric flat', metaballs: 'metaball metaballs blob blobs lava lamp gooey liquid', silk: 'silk satin fabric ribbon smooth flowing elegant', sungrid: 'synthwave retrowave 80s grid sun outrun vaporwave retro', kaleido: 'kaleidoscope mandala symmetry mirror psychedelic', truchet: 'truchet maze tiles pattern arcs', voronoi: 'stained glass cells voronoi crystal shards', fireflies: 'fireflies firefly night glow summer lights', rain: 'rain raindrops window glass storm weather cozy', dither: 'dither pixel retro 8-bit dithering', lake: 'lake mountain moon night reflection landscape', neoncity: 'neon city cyberpunk rain skyline street night', sea: 'sea ocean sunset waves beach golden hour', blossom: 'blossom cherry sakura petals spring moon', fireworks: 'fireworks celebration new year night burst', warp: 'warp speed hyperspace stars space travel', deepsea: 'deep sea jellyfish underwater ocean glow', smoke: 'smoke ink fluid flow wisps', riso: 'risograph riso print ink zine poster', blueprint: 'blueprint technical drawing engineering architect blue', zenink: 'zen ink japanese sumi-e brush mountain calm enso', memphis: 'memphis 80s 90s squiggle playful retro pattern', hud: 'sci-fi hud futuristic cyber radar tech interface', filmleak: 'film leak analog vintage grain light leak 35mm', terrazzo: 'terrazzo stone speckle floor chips', deco: 'art deco gold gatsby geometric luxury', glassorbs: 'glass orbs spheres balls 3d glossy bubbles', holofoil: 'holographic holo foil iridescent pearl chrome', frosted: 'frosted glass glassmorphism blur ios panes', galaxy: 'galaxy spiral stars space milky way cosmos', caustics: 'caustics pool water light ripple swimming', bokeh: 'bokeh lights blur night city', paper: 'paper layers cut waves shadow craft', shafts: 'light rays beams shafts god rays sunbeam', eq: 'music equalizer beat bars sound audio dj', pulse: 'beat pulse rings music thump', vinyl: 'vinyl record music turntable retro', wavebeat: 'soundwave waveform audio music wave', marble: 'marble ink swirl marbled fluid', sunburst: 'sunburst rays retro sun burst', hexgrid: 'hexagon honeycomb hex grid tech', orbits: 'orbit planets space solar system', confetti: 'confetti party celebration paper', constellation: 'constellation stars network connect dots space', gradient: 'gradient smooth clean simple minimal blend', brandlogo: 'pigment logo brand drop', brandtype: 'pigment name typography lettering text type', branddrops: 'drops droplets pigment pattern', daysky: 'sky day clock time sunrise sunset moon sun real time' };
   const score = (map, t) => Object.entries(map).map(([k, v]) => [k, v.split(' ').reduce((n, w) => n + (t.includes(w) ? 1 : 0), 0)]).sort((a, b) => b[1] - a[1]);
   function basic(text) {
-    const t = ' ' + text.toLowerCase() + ' ', sp = score(PT, t), ss = score(ST, t), hash = [...t].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
+    const t = ' ' + text.toLowerCase() + ' ', sp = score(PT, t), ss = score(ST, t).filter(x => styleOf(x[0])), hash = [...t].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
     if (t.length < 70 && !sp[0][1] && !ss[0][1] && /\b(no more|don'?t need|do not need|that'?s (all|enough|it)|enough|thanks|thank you|thx|bye|stop|never ?mind|no thanks|all good|i'?m good|love it|perfect|cool|ok|okay|great)\b/.test(t)) return { reply: "No problem. I'm here whenever you want another one.", items: [] };
     const liveStyles = STYLES.filter(s => s[3]).map(s => s[0]);
     let pals = sp.filter(x => x[1] > 0).slice(0, 3).map(x => x[0]); while (pals.length < 3) { const p = PALS[(hash + pals.length * 5) % PALS.length][0]; if (!pals.includes(p)) pals.push(p); }
@@ -1879,6 +1980,7 @@ setTimeout(() => {
     const device = /\b(iphone|phone|mobile|lock screen|ios)\b/.test(t) ? 'phone' : /\b(mac|macbook|desktop|laptop|pc|windows|monitor|4k|computer)\b/.test(t) ? 'desk' : curDev;
     const combos = [[sts[0], pals[0]], [sts[1], pals[0]], [sts[0], pals[1]]].filter((c, i, a) => a.findIndex(x => x[0] === c[0] && x[1] === c[1]) === i);
     const items = combos.map(([s, p]) => { const base = ALL.find(a => a.style === s && a.pal === p); const d = makeDesign({ style: s, palette: p, seed: base && base.seed, speed, name: base && base.name }); return { d, live: wantStill ? false : (styleOf(s)[3] && (wantLive || true)), device }; });
+    if (/\b(invent|create|design|original|unique|your own|from scratch|something new|surprise|imagine|make me|compose|paint)\b/.test(t)) { const d = makeDesign({ style: 'custom', recipe: autoRecipe(t, hash), palette: pals[0], name: 'Invented ' + pals[0], seed: hash % 900 + 1, speed }); items.unshift({ d, live: !wantStill, device }); if (items.length > 3) items.pop(); return { reply: 'I invented a one-off composition from your words (first card), plus matches from the built-in styles. Where Claude is connected I design these from scratch for your exact idea.', items }; }
     return { reply: 'Here are ' + items.length + ' matches' + (wantStill ? ', set to still' : '') + '. I am in basic mode, so I match your words to Pigment\'s built-in styles and colours. Use Tweak to change anything.', items };
   }
   /* ----- send ----- */

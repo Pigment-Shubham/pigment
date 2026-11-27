@@ -78,7 +78,7 @@ const LOOP = 16;
 function liveHTML(d) {
   const helpers = { clamp, h2r, r2h, rgba, mix, lum, ramp, rng, hash, vnoise, makeCanvas, grainTile, menuBand }, fnn = styleOf(d.style)[2];
   const src = Object.entries(helpers).map(([n, f]) => { const t = f.toString(); return t.startsWith('function') ? t : 'const ' + n + ' = ' + t + ';'; }).join('\n') + '\n' + fnn.toString();
-  const D = { style: d.style, colors: d.colors, seed: d.seed, o: Object.assign({ detail: 50, grain: 45 }, d.o || {}, d.style === 'daysky' ? { realtime: true } : {}) };
+  const D = { style: d.style, colors: d.colors, seed: d.seed, recipe: d.recipe, o: Object.assign({ detail: 50, grain: 45 }, d.o || {}, d.style === 'daysky' ? { realtime: true } : {}) };
   return '<!doctype html><html><head><meta charset="utf-8"><title>' + d.name.replace(/[<>&]/g, '') + ' (Pigment live wallpaper)</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{margin:0;height:100%;overflow:hidden;background:' + d.colors[0] + '}canvas{display:block;width:100vw;height:100vh;object-fit:cover}</style></head><body><canvas id="c"></canvas><script>\nlet GRAIN = null;\n' + src +
     '\nconst D = ' + JSON.stringify(D).replace(/</g, '\\u003c') + ', cv = document.getElementById("c"), ctx = cv.getContext("2d"), t0 = performance.now(); let last = 0;\ncv.width = 3840; cv.height = 2160;\nconst MENUBAR = true; // set to false to remove the calm strip behind the Mac menu bar\nlet nf = 0, acc = 0; // if drawing is slow, drop to 1440p so it stays smooth\nfunction frame(now) { requestAnimationFrame(frame); if (now - last < 33) return; last = now; const ts = performance.now(); ctx.save(); ' + fnn.name + '(ctx, cv.width, cv.height, D, (now - t0) / 1000 * (D.o.speed || 1), D.o); ctx.restore(); if (nf < 20) { acc += performance.now() - ts; if (++nf === 20 && acc / 20 > 40) { cv.width = 2560; cv.height = 1440; } } if (MENUBAR) { ctx.save(); menuBand(ctx, cv.width, cv.height, D.colors[0]); ctx.restore(); } }\nrequestAnimationFrame(frame);\n<\/script></body></html>';
 }
@@ -343,12 +343,12 @@ $('#stDl').onclick = () => download(stD(), ST.dev, $('#stSize').value); if (TOUC
 $('#surprise').onclick = () => { const live = ALL.filter(a => styleOf(a.style)[3]), pl = PALS[Math.floor(Math.random() * PALS.length)], b = live[Math.floor(Math.random() * live.length)]; openView(Object.assign({}, b, { colors: pl[1].slice(), seed: Math.floor(Math.random() * 9000) + 1, name: pl[0] + ' ' + styleOf(b.style)[1], o: {} })); };
 { const ft = $('#footNote'), lb = document.createElement('button'); lb.className = 'authlink'; const sync = () => { lb.textContent = 'Battery saver: ' + (LITE ? 'on' : 'off'); }; sync(); lb.onclick = () => { LITE = !LITE; LS.set('pg_lite', LITE); sync(); toast(LITE ? 'Battery saver on: animations run gently.' : 'Battery saver off.'); }; ft.after(lb); }
 /* ---------- router ---------- */
-const PAGES = ['home', 'browse', 'studio', 'saved'];
+const PAGES = ['home', 'browse', 'studio', 'saved', 'setup'];
 function route() {
   let h = location.hash.slice(1); const shared = /^d-/.test(h) ? decodeDesign(h) : null; if (!PAGES.includes(h)) h = 'home';
   PAGES.forEach(p => { $('#p-' + p).hidden = p !== h; }); $$('#nav a').forEach(a => a.classList.toggle('on', a.dataset.p === h));
   ['hero', 'studio'].forEach(stopAnim);
-  if (h === 'home') initHome(); else if (h === 'browse') initBrowse(); else if (h === 'studio') buildStudio(); else initSaved();
+  if (h === 'home') initHome(); else if (h === 'browse') initBrowse(); else if (h === 'studio') buildStudio(); else if (h === 'setup') initSetup(); else initSaved();
   if (shared) openView(shared);
 }
 window.addEventListener('hashchange', () => { route(); window.scrollTo(0, 0); });
