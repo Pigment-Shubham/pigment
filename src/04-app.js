@@ -279,7 +279,7 @@ function initSaved() {
 let fStyle = 'all', fVibe = 'all', bDev = 'phone', fAll = false;
 function initBrowse() {
   const chips = $('#styleChips'); chips.textContent = '';
-  { const vc = $('#vibeChips'); vc.textContent = ''; [['all', 'Every vibe']].concat(VIBES.map(v => [v[0], v[0]])).forEach(([k, l]) => { const b = document.createElement('button'); b.className = 'chip' + (fVibe === k ? ' on' : ''); b.textContent = l; b.onclick = () => { fVibe = k; fStyle = 'all'; initBrowse(); }; vc.appendChild(b); }); const tb = document.createElement('button'); tb.className = 'chip' + (fAll ? ' on' : ''); tb.textContent = fAll ? 'Showing every colour' : 'Show every colour'; tb.style.marginLeft = 'auto'; tb.onclick = () => { fAll = !fAll; initBrowse(); }; vc.appendChild(tb); }
+  { const vc = $('#vibeChips'); vc.textContent = ''; [['all', 'Every vibe']].concat(VIBES.map(v => [v[0], v[0]])).forEach(([k, l]) => { const b = document.createElement('button'); b.className = 'chip' + (fVibe === k ? ' on' : ''); b.textContent = l; b.onclick = () => { fVibe = k; fStyle = 'all'; initBrowse(); }; vc.appendChild(b); }); }
   const vk = fVibe === 'all' ? null : VIBES.find(v => v[0] === fVibe)[1].split(' ');
   [['all', 'All']].concat(STYLES.filter(s => !vk || vk.includes(s[0])).map(s => [s[0], s[1]])).forEach(([k, l]) => { const b = document.createElement('button'); b.className = 'chip' + (fStyle === k ? ' on' : ''); b.textContent = l; b.onclick = () => { fStyle = k; initBrowse(); }; chips.appendChild(b); });
   $$('#devSeg button').forEach(b => b.classList.toggle('on', b.dataset.d === bDev));
