@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.4.1
+- Browse filters are clearer: the two rows are now labelled "Filter by vibe" and "Pick a style", with a divider between them and clearer "All vibes" and "All styles" buttons.
+
 ## 3.4.0
 - The assistant can now invent its own one-off wallpapers: say "invent a sunset over the sea" and it builds a layered composition (sky, glow, sun or moon, stars, waves, mountains, rings, rays). With Claude connected it designs from scratch for your exact idea.
 - New "Look" button in the top bar: Auto, Light or Dark theme, a background colour, and an optional slowly moving background.

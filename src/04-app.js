@@ -279,9 +279,9 @@ function initSaved() {
 let fStyle = 'all', fVibe = 'all', bDev = 'phone', fAll = false;
 function initBrowse() {
   const chips = $('#styleChips'); chips.textContent = '';
-  { const vc = $('#vibeChips'); vc.textContent = ''; [['all', 'Every vibe']].concat(VIBES.map(v => [v[0], v[0]])).forEach(([k, l]) => { const b = document.createElement('button'); b.className = 'chip' + (fVibe === k ? ' on' : ''); b.textContent = l; b.onclick = () => { fVibe = k; fStyle = 'all'; initBrowse(); }; vc.appendChild(b); }); }
+  { const vc = $('#vibeChips'); vc.textContent = ''; [['all', 'All vibes']].concat(VIBES.map(v => [v[0], v[0]])).forEach(([k, l]) => { const b = document.createElement('button'); b.className = 'chip' + (fVibe === k ? ' on' : ''); b.textContent = l; b.onclick = () => { fVibe = k; fStyle = 'all'; initBrowse(); }; vc.appendChild(b); }); }
   const vk = fVibe === 'all' ? null : VIBES.find(v => v[0] === fVibe)[1].split(' ');
-  [['all', 'All']].concat(STYLES.filter(s => !vk || vk.includes(s[0])).map(s => [s[0], s[1]])).forEach(([k, l]) => { const b = document.createElement('button'); b.className = 'chip' + (fStyle === k ? ' on' : ''); b.textContent = l; b.onclick = () => { fStyle = k; initBrowse(); }; chips.appendChild(b); });
+  [['all', 'All styles']].concat(STYLES.filter(s => !vk || vk.includes(s[0])).map(s => [s[0], s[1]])).forEach(([k, l]) => { const b = document.createElement('button'); b.className = 'chip' + (fStyle === k ? ' on' : ''); b.textContent = l; b.onclick = () => { fStyle = k; initBrowse(); }; chips.appendChild(b); });
   $$('#devSeg button').forEach(b => b.classList.toggle('on', b.dataset.d === bDev));
   const g = $('#gal'); g.className = 'gal' + (bDev === 'desk' ? ' desk' : ''); g.textContent = ''; queue.length = 0;
   const list = ALL.filter(d => (fStyle === 'all' || d.style === fStyle) && (!vk || vk.includes(d.style)) && (fAll || fStyle !== 'all' || d.pal === styleOf(d.style)[5])), PAGE = 48; let shown = 0;

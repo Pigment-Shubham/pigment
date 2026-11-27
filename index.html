@@ -210,6 +210,7 @@ input[type=color]::-moz-color-swatch{border:0}
 .setup .step b.n{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--fg);color:var(--onfg);font-family:var(--display)}
 .setup .step p{margin:0;line-height:1.5}.setup .note{color:var(--mute);font-size:14px;line-height:1.5}
 @media (max-width:560px){.lookpop{top:112px}}
+.chiplab{font:700 11px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin:0 0 10px}.chipsep{height:1px;background:var(--line);margin:20px 0 18px}
 </style>
 </head><body><noscript>Pigment needs JavaScript. Open this file in Chrome, Edge, Firefox or Safari.</noscript><div class="bar"><div class="barin">
   <a class="brand" href="#home"><span class="dot" id="dot"></span>Pigment</a><span class="cr" aria-label="Copyright Shubham Patel">© <span>Made By Shubham Patel</span></span>
@@ -238,7 +239,10 @@ input[type=color]::-moz-color-swatch{border:0}
 <section class="page" id="p-browse" hidden>
   <div class="head"><div><div class="kick">Browse</div><h2 class="h2" style="margin-top:8px">Wallpapers</h2></div>
     <div class="seg" id="devSeg"><button data-d="phone" class="on">Phone</button><button data-d="desk">Desktop</button></div></div>
-  <div class="chips" id="vibeChips" style="margin-bottom:10px"></div>
+  <div class="chiplab">Filter by vibe</div>
+  <div class="chips" id="vibeChips"></div>
+  <div class="chipsep"></div>
+  <div class="chiplab">Pick a style</div>
   <div class="chips" id="styleChips" style="margin-bottom:22px"></div>
   <div class="gal" id="gal"></div>
 </section>
@@ -1677,9 +1681,9 @@ function initSaved() {
 let fStyle = 'all', fVibe = 'all', bDev = 'phone', fAll = false;
 function initBrowse() {
   const chips = $('#styleChips'); chips.textContent = '';
-  { const vc = $('#vibeChips'); vc.textContent = ''; [['all', 'Every vibe']].concat(VIBES.map(v => [v[0], v[0]])).forEach(([k, l]) => { const b = document.createElement('button'); b.className = 'chip' + (fVibe === k ? ' on' : ''); b.textContent = l; b.onclick = () => { fVibe = k; fStyle = 'all'; initBrowse(); }; vc.appendChild(b); }); }
+  { const vc = $('#vibeChips'); vc.textContent = ''; [['all', 'All vibes']].concat(VIBES.map(v => [v[0], v[0]])).forEach(([k, l]) => { const b = document.createElement('button'); b.className = 'chip' + (fVibe === k ? ' on' : ''); b.textContent = l; b.onclick = () => { fVibe = k; fStyle = 'all'; initBrowse(); }; vc.appendChild(b); }); }
   const vk = fVibe === 'all' ? null : VIBES.find(v => v[0] === fVibe)[1].split(' ');
-  [['all', 'All']].concat(STYLES.filter(s => !vk || vk.includes(s[0])).map(s => [s[0], s[1]])).forEach(([k, l]) => { const b = document.createElement('button'); b.className = 'chip' + (fStyle === k ? ' on' : ''); b.textContent = l; b.onclick = () => { fStyle = k; initBrowse(); }; chips.appendChild(b); });
+  [['all', 'All styles']].concat(STYLES.filter(s => !vk || vk.includes(s[0])).map(s => [s[0], s[1]])).forEach(([k, l]) => { const b = document.createElement('button'); b.className = 'chip' + (fStyle === k ? ' on' : ''); b.textContent = l; b.onclick = () => { fStyle = k; initBrowse(); }; chips.appendChild(b); });
   $$('#devSeg button').forEach(b => b.classList.toggle('on', b.dataset.d === bDev));
   const g = $('#gal'); g.className = 'gal' + (bDev === 'desk' ? ' desk' : ''); g.textContent = ''; queue.length = 0;
   const list = ALL.filter(d => (fStyle === 'all' || d.style === fStyle) && (!vk || vk.includes(d.style)) && (fAll || fStyle !== 'all' || d.pal === styleOf(d.style)[5])), PAGE = 48; let shown = 0;
@@ -1795,7 +1799,7 @@ function initSetup() {
 })();
 
 /* ---------- local profile (name + picture), version check ---------- */
-const APP_VERSION = '3.4.0';
+const APP_VERSION = '3.4.1';
 (function () {
   const btn = $('#authBtn'), av = $('#authView'), box = $('#authActs');
   let P = LS.get('pg_profile', null);
