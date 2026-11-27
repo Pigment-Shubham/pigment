@@ -1,0 +1,92 @@
+/* ---------- Pigment assistant: finds or creates a wallpaper from a description ---------- */
+(function () {
+  const HEX = /^#[0-9a-fA-F]{6}$/, num = (v, a, b, d) => { v = parseFloat(v); return isFinite(v) ? Math.min(b, Math.max(a, v)) : d; };
+  let history = [], busy = false, sampleFn, sampleChecked = false, curDev = 'phone';
+  /* ----- build the widget ----- */
+  const fab = document.createElement('button'); fab.className = 'aib'; fab.type = 'button'; fab.setAttribute('aria-label', 'Open the Pigment assistant');
+  const fi = document.createElement('img'); fi.alt = ''; try { fi.src = drawLogo(112); } catch (e) { } const fl = document.createElement('span'); fl.textContent = 'Ask Pigment'; fab.append(fi, fl);
+  const panel = document.createElement('section'); panel.className = 'aip'; panel.hidden = true; panel.setAttribute('aria-label', 'Pigment assistant');
+  panel.innerHTML = '<header><div><b>Pigment assistant</b><small id="aiMode">Describe a wallpaper</small></div><button type="button" class="aix" aria-label="Close">×</button></header><div class="aim" id="aiMsgs"></div><div class="aich" id="aiChips"></div><form class="aif" id="aiForm"><input id="aiIn" type="text" autocomplete="off" maxlength="300" placeholder="e.g. calm teal northern lights, live"><button class="pill accent sm" type="submit">Send</button></form>';
+  document.body.append(fab, panel);
+  const msgs = panel.querySelector('#aiMsgs'), inp = panel.querySelector('#aiIn'), chips = panel.querySelector('#aiChips');
+  const scroll = () => { msgs.scrollTop = msgs.scrollHeight; };
+  const bubble = (who, text) => { const b = document.createElement('div'); b.className = 'b ' + who; b.textContent = text; msgs.appendChild(b); scroll(); return b; };
+  const toggle = on => { panel.hidden = !on; fab.classList.toggle('open', on); if (on) { if (!msgs.children.length) hello(); setTimeout(() => inp.focus(), 50); } };
+  fab.onclick = () => toggle(panel.hidden); panel.querySelector('.aix').onclick = () => toggle(false);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden && $('#view').hidden && $('#prev').hidden) toggle(false); });
+  function hello() {
+    bubble('a', "Hi! Tell me what you want and I'll find or make it: a colour, a mood, a place, a style. Say if it should move or stay still, and whether it's for iPhone or MacBook.");
+    ['Calm teal northern lights, live', 'Neon city night for my MacBook', 'Soft pastel, still, for iPhone', 'Something like a forest at dawn'].forEach(t => { const c = document.createElement('button'); c.type = 'button'; c.textContent = t; c.onclick = () => { inp.value = t; panel.querySelector('#aiForm').requestSubmit(); }; chips.appendChild(c); });
+  }
+  /* ----- result card ----- */
+  function resultCard(spec) {
+    const d = spec.d, card = document.createElement('div'); card.className = 'aic'; let dev = spec.device, live = spec.live && styleOf(d.style)[3], key = 'ai' + Math.random();
+    const draw = () => {
+      stopAnim(key); card.textContent = '';
+      const [W, H] = dev === 'phone' ? [168, 364] : [320, 200], cv = makeCanvas(W, H, 'aipv'), mo = dev === 'desk' ? { menubar: true } : null; paintTo(cv, d, 2, mo); if (live && !reduced) startAnim(key, cv, () => d, 24, mo);
+      const t = document.createElement('b'); t.textContent = d.name; const s = document.createElement('small'); s.textContent = styleOf(d.style)[1] + (styleOf(d.style)[3] ? (live ? ' · live' : ' · still') : ' · still') + (d.o.speed && d.o.speed !== 1 && live ? ' · ' + d.o.speed + '×' : '');
+      const sw = document.createElement('div'); sw.className = 'sw5'; d.colors.forEach(c => { const i = document.createElement('i'); i.style.background = c; sw.appendChild(i); });
+      const meta = document.createElement('div'); meta.className = 'aimeta'; const tx = document.createElement('div'); tx.append(t, s); meta.append(tx, sw);
+      const ctl = document.createElement('div'); ctl.className = 'aictl';
+      const sg = (opts, cur, fn) => { const g = document.createElement('div'); g.className = 'seg sm'; opts.forEach(([v, l]) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = l; b.className = cur === v ? 'on' : ''; b.onclick = () => fn(v); g.appendChild(b); }); return g; };
+      ctl.appendChild(sg([['phone', 'iPhone'], ['desk', 'MacBook']], dev, v => { dev = v; draw(); }));
+      if (styleOf(d.style)[3]) ctl.appendChild(sg([[true, 'Live'], [false, 'Still']], live, v => { live = v; draw(); }));
+      const acts = document.createElement('div'); acts.className = 'acts';
+      const dl = document.createElement('button'); dl.type = 'button'; dl.className = 'pill accent sm'; dl.textContent = TOUCH ? 'Save image' : 'Download'; dl.onclick = () => download(d, dev);
+      const op = document.createElement('button'); op.type = 'button'; op.className = 'pill line sm'; op.textContent = 'Open'; op.onclick = () => openView(Object.assign({}, d, { o: Object.assign({}, d.o, live ? {} : {}) }));
+      const ed = document.createElement('button'); ed.type = 'button'; ed.className = 'pill line sm'; ed.textContent = 'Tweak'; ed.onclick = () => { loadStudio(d); location.hash = '#studio'; toggle(false); };
+      const sv = document.createElement('button'); sv.type = 'button'; sv.className = 'pill line sm'; sv.textContent = 'Save'; sv.onclick = () => saveDesign(d);
+      acts.append(dl, op, ed, sv);
+      card.append(cv, meta, ctl, acts);
+      if (live) { const lb = liveBox(() => d, () => dev); if (lb) { lb.classList.add('aililive'); card.appendChild(lb); } }
+    };
+    draw(); return card;
+  }
+  /* ----- turn a request into designs ----- */
+  const STY = Object.fromEntries(STYLES.map(s => [s[0], s]));
+  function makeDesign(s) {
+    const st = STY[s.style] ? s.style : 'grain'; let cols = Array.isArray(s.colors) && s.colors.length >= 5 && s.colors.slice(0, 5).every(c => HEX.test(c)) ? s.colors.slice(0, 5).map(c => c.toLowerCase()) : null, pal = s.palette && PALS.find(p => p[0].toLowerCase() === String(s.palette).toLowerCase());
+    if (!cols) cols = (pal || PALS[Math.floor(Math.random() * PALS.length)])[1].slice();
+    if (/^(aurora|stardust)$/.test(st) && lum(cols[0]) > .5) cols = [cols[4], cols[1], cols[2], cols[3], cols[0]].map(c => c);
+    const o = { detail: Math.round(num(s.detail, 0, 100, 50)), grain: Math.round(num(s.grain, 0, 100, 45)), speed: num(s.speed, .25, 2, 1) };
+    return { style: st, colors: cols, seed: Number.isInteger(s.seed) ? s.seed : 1 + Math.floor(Math.random() * 900), o, name: String(s.name || (pal ? pal[0] + ' ' : '') + STY[st][1]).slice(0, 32), pal: pal ? pal[0] : null };
+  }
+  /* Claude-powered path (only exists where the page is given Claude) */
+  async function getSample() { if (sampleChecked) return sampleFn; sampleChecked = true; try { sampleFn = window.claude && window.claude.use ? await window.claude.use('sample') : null; } catch (e) { sampleFn = null; } return sampleFn; }
+  async function askClaude(sample, text) {
+    const sty = STYLES.map(s => s[0] + ' (' + s[1] + '): ' + s[4] + (s[3] ? ' [moves]' : ' [still only]')).join('\n'), pal = PALS.map(p => p[0] + ': ' + p[1].join(' ')).join('\n');
+    const convo = history.slice(-6).map(h => (h.who === 'u' ? 'Person: ' : 'Assistant: ') + h.text).join('\n');
+    const prompt = `You are the assistant inside Pigment, a wallpaper app that draws wallpapers in code. Turn the person's request into 2 or 3 wallpaper designs using ONLY these styles:\n${sty}\n\nExisting palettes (background first, then 4 colours):\n${pal}\n\nRules:\n- Reply with ONLY a JSON object, no markdown, in this shape: {"reply":"one or two friendly sentences","wallpapers":[{"name":"2-3 word name","style":"<style key>","palette":"<palette name or null>","colors":["#bg","#c1","#c2","#c3","#c4"],"speed":1,"detail":50,"grain":45,"live":true,"device":"phone"}]}\n- Prefer custom "colors" that match the request (valid #rrggbb); first colour is the background. aurora and stardust need a dark background. Use "palette" with colors set to null only if an existing palette fits perfectly.\n- speed is 0.25 to 2 (calm/slow about 0.5, energetic about 1.5). detail and grain are 0 to 100. grain only matters for the grain style.\n- live is false if they ask for still, static, normal or printable; true otherwise when the style moves. device is "phone" or "desk" (MacBook or computer); if unsure use "${curDev}".\n- If they ask for something these styles cannot draw (a photo, a character, text), say so in the reply and give the closest abstract wallpapers.\n- Give the options clearly different looks.\n- If the person is NOT asking for new wallpapers (for example thanks, \"no more\", \"that's enough\", a yes/no, a question about the app, or small talk), return an empty wallpapers array and just answer in the reply. Never add wallpapers they did not ask for.\n\nConversation so far:\n${convo}\nPerson: ${text}`;
+    const r = await sample(prompt, { cache: false, modelTier: 'default' }); const m = /\{[\s\S]*\}/.exec(r && r.text || ''); if (!m) throw new Error('bad reply'); const j = JSON.parse(m[0]);
+    if (!Array.isArray(j.wallpapers)) throw new Error('no wallpapers'); return { reply: String(j.reply || 'Here you go.'), items: j.wallpapers.slice(0, 3).map(w => ({ d: makeDesign(w), live: w.live !== false, device: w.device === 'desk' ? 'desk' : 'phone' })) };
+  }
+  /* Basic path: keyword matching over the 256 built-in wallpapers (works anywhere) */
+  const PT = { Sorbet: 'sunset orange warm peach coral summer fruit sunrise', Lagoon: 'teal aqua tropical ocean sea lagoon turquoise fresh', Moss: 'green earthy olive nature moss natural vintage', Dusk: 'purple dusk twilight evening sunset pink dreamy synthwave retro', Candy: 'pink candy cute sweet bright playful bubblegum', Poster: 'bold primary bauhaus graphic poster red yellow minimal', 'Deep Sea': 'deep ocean sea navy underwater blue water calm', Ember: 'fire ember red hot dark lava orange autumn moody', Lilac: 'lilac lavender purple soft pastel calm', Sand: 'sand beige desert earth brown neutral warm boho', Mint: 'mint fresh green clean light spring', Midnight: 'midnight night dark space blue galaxy navy', Cotton: 'cotton pastel candy soft dreamy kawaii light', Forest: 'forest jungle green dark nature woods dawn', 'Rose Gold': 'rose gold luxury elegant blush pink', Neon: 'neon cyberpunk glow electric vivid rave city gaming', 'Spring Blossom': 'spring blossom cherry pink floral fresh', 'Summer Mango': 'summer mango tropical sunny yellow beach', 'Autumn Harvest': 'autumn fall harvest warm leaves cozy', 'Winter Frost': 'winter frost ice snow cold blue', 'Peach Fizz': 'peach fizz soft coral sweet', Blueberry: 'blueberry dark blue purple berry', Matcha: 'matcha green tea calm earthy', Graphite: 'graphite grey gray monochrome minimal dark', Holiday: 'holiday christmas festive red green xmas' };
+  const ST = { meshgrad: 'mesh gradient blurry soft colourful apple ios', liquid: 'liquid satin ribbon silk flow glossy', gloworb: 'orb glow sphere planet halo', softwaves: 'soft waves hills layers macos sonoma', prism: 'prism glass frosted panes', petals: 'petal bloom flower glow', spheres: 'spheres pebbles balls 3d soft', aurarings: 'rings aura ripple pulse glow', grain: 'grain grainy gradient soft film blur aura minimal', ridges: 'ridge mountain lines signal mountains terrain', dunes: 'dunes hills desert landscape sunset layers', halftone: 'halftone dots dotted retro comic pop', aurora: 'aurora northern lights sky glow', ripples: 'ripple water drops rings circles rain', contours: 'contour topographic topo map lines', waves: 'waves ocean sea flowing lines', bubbles: 'bubbles bubble soap glass floating', stardust: 'stars space galaxy night nebula cosmic', mosaic: 'mosaic tiles squares pixels grid', bars: 'bars equalizer pills stripes music', bloom: 'flower sunflower spiral bloom floral petals', spiro: 'spirograph spiral loops geometric curves', opart: 'optical checker illusion trippy psychedelic', shapes: 'shapes bauhaus geometric flat', metaballs: 'metaball metaballs blob blobs lava lamp gooey liquid', silk: 'silk satin fabric ribbon smooth flowing elegant', sungrid: 'synthwave retrowave 80s grid sun outrun vaporwave retro', kaleido: 'kaleidoscope mandala symmetry mirror psychedelic', truchet: 'truchet maze tiles pattern arcs', voronoi: 'stained glass cells voronoi crystal shards', fireflies: 'fireflies firefly night glow summer lights', rain: 'rain raindrops window glass storm weather cozy', dither: 'dither pixel retro 8-bit dithering', lake: 'lake mountain moon night reflection landscape', neoncity: 'neon city cyberpunk rain skyline street night', sea: 'sea ocean sunset waves beach golden hour', blossom: 'blossom cherry sakura petals spring moon', fireworks: 'fireworks celebration new year night burst', warp: 'warp speed hyperspace stars space travel', deepsea: 'deep sea jellyfish underwater ocean glow', smoke: 'smoke ink fluid flow wisps', riso: 'risograph riso print ink zine poster', blueprint: 'blueprint technical drawing engineering architect blue', zenink: 'zen ink japanese sumi-e brush mountain calm enso', memphis: 'memphis 80s 90s squiggle playful retro pattern', hud: 'sci-fi hud futuristic cyber radar tech interface', filmleak: 'film leak analog vintage grain light leak 35mm', terrazzo: 'terrazzo stone speckle floor chips', deco: 'art deco gold gatsby geometric luxury', glassorbs: 'glass orbs spheres balls 3d glossy bubbles', holofoil: 'holographic holo foil iridescent pearl chrome', frosted: 'frosted glass glassmorphism blur ios panes', galaxy: 'galaxy spiral stars space milky way cosmos', caustics: 'caustics pool water light ripple swimming', bokeh: 'bokeh lights blur night city', paper: 'paper layers cut waves shadow craft', shafts: 'light rays beams shafts god rays sunbeam', eq: 'music equalizer beat bars sound audio dj', pulse: 'beat pulse rings music thump', vinyl: 'vinyl record music turntable retro', wavebeat: 'soundwave waveform audio music wave', marble: 'marble ink swirl marbled fluid', sunburst: 'sunburst rays retro sun burst', hexgrid: 'hexagon honeycomb hex grid tech', orbits: 'orbit planets space solar system', confetti: 'confetti party celebration paper', constellation: 'constellation stars network connect dots space', gradient: 'gradient smooth clean simple minimal blend', brandlogo: 'pigment logo brand drop', brandtype: 'pigment name typography lettering text type', branddrops: 'drops droplets pigment pattern', daysky: 'sky day clock time sunrise sunset moon sun real time' };
+  const score = (map, t) => Object.entries(map).map(([k, v]) => [k, v.split(' ').reduce((n, w) => n + (t.includes(w) ? 1 : 0), 0)]).sort((a, b) => b[1] - a[1]);
+  function basic(text) {
+    const t = ' ' + text.toLowerCase() + ' ', sp = score(PT, t), ss = score(ST, t), hash = [...t].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
+    if (t.length < 70 && !sp[0][1] && !ss[0][1] && /\b(no more|don'?t need|do not need|that'?s (all|enough|it)|enough|thanks|thank you|thx|bye|stop|never ?mind|no thanks|all good|i'?m good|love it|perfect|cool|ok|okay|great)\b/.test(t)) return { reply: "No problem. I'm here whenever you want another one.", items: [] };
+    const liveStyles = STYLES.filter(s => s[3]).map(s => s[0]);
+    let pals = sp.filter(x => x[1] > 0).slice(0, 3).map(x => x[0]); while (pals.length < 3) { const p = PALS[(hash + pals.length * 5) % PALS.length][0]; if (!pals.includes(p)) pals.push(p); }
+    let sts = ss.filter(x => x[1] > 0).slice(0, 3).map(x => x[0]); while (sts.length < 3) { const s = liveStyles[(hash + sts.length * 7) % liveStyles.length]; if (!sts.includes(s)) sts.push(s); }
+    const wantStill = /\b(still|static|normal|print|not moving|no motion|photo)\b/.test(t), wantLive = /\b(live|moving|moves|animated|motion|alive)\b/.test(t);
+    const speed = /very slow/.test(t) ? .3 : /\b(slow|calm|relax|gentle|chill|soft)\w*\b/.test(t) ? .5 : /\b(fast|energetic|quick|lively|intense)\b/.test(t) ? 1.6 : 1;
+    const device = /\b(iphone|phone|mobile|lock screen|ios)\b/.test(t) ? 'phone' : /\b(mac|macbook|desktop|laptop|pc|windows|monitor|4k|computer)\b/.test(t) ? 'desk' : curDev;
+    const combos = [[sts[0], pals[0]], [sts[1], pals[0]], [sts[0], pals[1]]].filter((c, i, a) => a.findIndex(x => x[0] === c[0] && x[1] === c[1]) === i);
+    const items = combos.map(([s, p]) => { const base = ALL.find(a => a.style === s && a.pal === p); const d = makeDesign({ style: s, palette: p, seed: base && base.seed, speed, name: base && base.name }); return { d, live: wantStill ? false : (styleOf(s)[3] && (wantLive || true)), device }; });
+    return { reply: 'Here are ' + items.length + ' matches' + (wantStill ? ', set to still' : '') + '. I am in basic mode, so I match your words to Pigment\'s built-in styles and colours. Use Tweak to change anything.', items };
+  }
+  /* ----- send ----- */
+  panel.querySelector('#aiForm').onsubmit = async e => {
+    e.preventDefault(); const text = inp.value.trim(); if (!text || busy) return; inp.value = ''; chips.textContent = ''; busy = true; bubble('u', text); history.push({ who: 'u', text });
+    const wait = bubble('a', ''); wait.classList.add('typing'); wait.innerHTML = '<i></i><i></i><i></i>';
+    let out; const sample = await getSample();
+    try { if (sample) { panel.querySelector('#aiMode').textContent = 'Powered by Claude'; out = await askClaude(sample, text); } else { panel.querySelector('#aiMode').textContent = 'Basic mode · matches your words to built-in styles'; out = basic(text); } }
+    catch (err) { if (sample && err && (err.code === 'not_granted' || err.code === 'rate_limited')) { out = basic(text); out.reply = (err.code === 'rate_limited' ? 'Claude is busy, so ' : 'Without Claude access, ') + 'I used basic mode. ' + out.reply; } else { try { out = basic(text); out.reply = 'I could not reach Claude just now, so I used basic mode. ' + out.reply; } catch (e2) { out = null; } } }
+    wait.remove(); busy = false;
+    if (!out) { bubble('a', 'Sorry, something went wrong. Try again?'); return; }
+    history.push({ who: 'a', text: out.reply }); bubble('a', out.reply); if (out.items.length) curDev = out.items[0].device;
+    out.items.forEach(it => msgs.appendChild(resultCard({ d: it.d, live: it.live, device: it.device }))); scroll();
+  };
+})();
