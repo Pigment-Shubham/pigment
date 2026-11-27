@@ -2,8 +2,8 @@
 function pillScene(ctx, w, h, d, t, o, mode) {
   const C = d.colors, a = t / 16 * 6.2832, dark = mode === 3 || lum(C[0]) < .35, port = h > w, W = port ? h : w, H = port ? w : h;
   ctx.fillStyle = dark ? mix(C[0], '#000000', .6) : mix(C[0], '#ffffff', .78); ctx.fillRect(0, 0, w, h);
-  ctx.save(); if (port) { ctx.translate(w, 0); ctx.rotate(Math.PI / 2); }
-  const N = 9, pw = W * .17, step = W * .08, tot = pw + step * (N - 1), x0 = (W - tot) / 2, base = H * .72, cols = [C[1], C[2], C[3], C[4]];
+  ctx.save(); if (port) { ctx.translate(w, 0); ctx.rotate(Math.PI / 2); } else ctx.translate(0, H * .05);
+  const N = 9, pw = W * .17, step = W * .08, tot = pw + step * (N - 1), x0 = (W - tot) / 2, base = H * .66, cols = [C[1], C[2], C[3], C[4]];
   const colAt = u => { const k = u * (cols.length - 1), i = Math.min(cols.length - 2, Math.floor(k)); return mix(cols[i], cols[i + 1], k - i); };
   for (let i = 0; i < N; i++) {
     const u = i / (N - 1), ph = a + i * .55; let ph2 = base, y = (H - ph2) / 2, ang = 0, wd = pw;

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.6.2
+- Desktop wallpapers: the strip at the top for the menu bar now continues the wallpaper's own colour instead of fading to a fixed colour, so dark wallpapers get a dark top and no white fade.
+- Pill wallpapers leave more room at the top on desktop.
+
 ## 3.6.1
 - New Pills vibe: Pill Row, Pill Wave, Pill Fan and Pill Night.
 

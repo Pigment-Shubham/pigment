@@ -68,7 +68,21 @@ const VIBES = [['Soft', 'grain silk marble frosted paper aurora waves bubbles'],
 const CUSTOM_ENTRY = ['custom', 'Custom', drawRecipe, true, 'A one-off composition invented by the assistant', 'Sorbet'];
 const styleOf = k => k === 'photo' ? PHOTO_ENTRY : k === 'custom' ? CUSTOM_ENTRY : STYLES.find(s => s[0] === k);
 /* Calm strip along the top edge so a Mac menu bar stays readable on desktop wallpapers. */
-function menuBand(ctx, w, h, c) { const s = h * .034, f = h * .09, g = ctx.createLinearGradient(0, 0, 0, f); g.addColorStop(0, c); g.addColorStop(s / f, c); g.addColorStop(1, rgba(c, 0)); ctx.fillStyle = g; ctx.fillRect(0, 0, w, f); }
+function menuBand(ctx, w, h, c) {
+  /* extend the wallpaper's own top colour upward, so the menu bar area matches whatever is underneath */
+  const s = h * .034, f = Math.ceil(h * .09), y0 = Math.min(h - 3, f + 1), N = Math.max(24, Math.min(256, Math.round(w / 12)));
+  let px = null; try { px = ctx.getImageData(0, y0, w, 3).data; } catch (e) { }
+  const sc = makeCanvas(N, 1), sx = sc.getContext('2d'), im = sx.createImageData(N, 1), cc = h2r(c), sw = w / N;
+  for (let i = 0; i < N; i++) {
+    let r = cc[0], g = cc[1], b = cc[2];
+    if (px) { r = g = b = 0; let n = 0; const x0 = Math.floor(i * sw), x1 = Math.max(x0, Math.min(w - 1, Math.floor((i + 1) * sw) - 1)); for (let row = 0; row < 3; row++) for (let x = x0; x <= x1; x++) { const k = (row * w + x) * 4; r += px[k]; g += px[k + 1]; b += px[k + 2]; n++; } r /= n; g /= n; b /= n; }
+    im.data[i * 4] = r; im.data[i * 4 + 1] = g; im.data[i * 4 + 2] = b; im.data[i * 4 + 3] = 255;
+  }
+  sx.putImageData(im, 0, 0);
+  const oc = makeCanvas(w, f), ox = oc.getContext('2d'); ox.imageSmoothingEnabled = true; ox.imageSmoothingQuality = 'high'; ox.drawImage(sc, 0, 0, w, f);
+  ox.globalCompositeOperation = 'destination-in'; const gr = ox.createLinearGradient(0, 0, 0, f); gr.addColorStop(0, 'rgba(0,0,0,1)'); gr.addColorStop(Math.min(1, s / f), 'rgba(0,0,0,1)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); ox.fillStyle = gr; ox.fillRect(0, 0, w, f);
+  ctx.drawImage(oc, 0, 0);
+}
 function render(ctx, w, h, d, t, o) { o = Object.assign({ detail: 50, grain: 45, speed: 1 }, d.o || {}, o || {}); ctx.save(); styleOf(d.style)[2](ctx, w, h, d, (t || 0) * o.speed, o); ctx.restore(); if (o.menubar) { ctx.save(); menuBand(ctx, w, h, d.colors[0]); ctx.restore(); } if (o.text) drawText(ctx, w, h, d.colors, o); if (o.widgets && w < h) { const c = d.colors[0], g = ctx.createLinearGradient(0, h * .1, 0, h * .46); g.addColorStop(0, rgba(c, 0)); g.addColorStop(.25, rgba(c, .62)); g.addColorStop(.75, rgba(c, .62)); g.addColorStop(1, rgba(c, 0)); ctx.save(); ctx.fillStyle = g; ctx.fillRect(0, h * .1, w, h * .36); ctx.restore(); } if (o.calm && w < h) { const c = d.colors[0], g = ctx.createLinearGradient(0, 0, 0, h * .4); g.addColorStop(0, rgba(c, .78)); g.addColorStop(.55, rgba(c, .4)); g.addColorStop(1, rgba(c, 0)); ctx.save(); ctx.fillStyle = g; ctx.fillRect(0, 0, w, h * .4); ctx.restore(); } }
 
 function drawText(ctx, w, h, C, o) {
