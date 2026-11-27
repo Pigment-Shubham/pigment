@@ -76,7 +76,7 @@ async function saveBlob(blob, name, noShare) {
 /* ---------- live wallpaper exports ---------- */
 const LOOP = 16;
 function liveHTML(d) {
-  const helpers = { clamp, h2r, r2h, rgba, mix, lum, ramp, rng, hash, vnoise, makeCanvas, grainTile, menuBand }, fnn = styleOf(d.style)[2];
+  const helpers = { clamp, h2r, r2h, rgba, mix, lum, ramp, rng, hash, vnoise, makeCanvas, grainTile, menuBand, cmdPath, softBg, rr, appleFont }, fnn = styleOf(d.style)[2];
   const src = Object.entries(helpers).map(([n, f]) => { const t = f.toString(); return t.startsWith('function') ? t : 'const ' + n + ' = ' + t + ';'; }).join('\n') + '\n' + fnn.toString();
   const D = { style: d.style, colors: d.colors, seed: d.seed, recipe: d.recipe, o: Object.assign({ detail: 50, grain: 45 }, d.o || {}, d.style === 'daysky' ? { realtime: true } : {}) };
   return '<!doctype html><html><head><meta charset="utf-8"><title>' + d.name.replace(/[<>&]/g, '') + ' (Pigment live wallpaper)</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{margin:0;height:100%;overflow:hidden;background:' + d.colors[0] + '}canvas{display:block;width:100vw;height:100vh;object-fit:cover}</style></head><body><canvas id="c"></canvas><script>\nlet GRAIN = null;\n' + src +
@@ -256,7 +256,7 @@ const saved = () => LS.get('pg_saved', []).filter(d => d && styleOf(d.style));
 function updSaved() { const n = saved().length; $('#savedN').textContent = n ? '(' + n + ')' : ''; }
 function saveDesign(d) { const l = saved(); l.unshift({ id: 'u' + Date.now(), style: d.style, name: d.name, colors: d.colors.slice(), seed: d.seed, o: Object.assign({}, d.o || {}) }); LS.set('pg_saved', l); updSaved(); if (window.cloudAdd) cloudAdd(l[0]); toast('Saved to your collection'); }
 function playlistHTML(list, mins) {
-  const helpers = { clamp, h2r, r2h, rgba, mix, lum, ramp, rng, hash, vnoise, makeCanvas, grainTile, menuBand }, styles = [...new Set(list.map(d => d.style))];
+  const helpers = { clamp, h2r, r2h, rgba, mix, lum, ramp, rng, hash, vnoise, makeCanvas, grainTile, menuBand, cmdPath, softBg, rr, appleFont }, styles = [...new Set(list.map(d => d.style))];
   const src = Object.entries(helpers).map(([n, f]) => { const t = f.toString(); return t.startsWith('function') ? t : 'const ' + n + ' = ' + t + ';'; }).join('\n') + '\n' + styles.map(k => styleOf(k)[2].toString()).join('\n');
   const map = '{' + styles.map(k => k + ':' + styleOf(k)[2].name).join(',') + '}', L = list.map(d => ({ style: d.style, colors: d.colors, seed: d.seed, o: Object.assign({ detail: 50, grain: 45 }, d.o || {}, d.style === 'daysky' ? { realtime: true } : {}) }));
   const run = `const FN = ${map}, L = ${JSON.stringify(L).replace(/</g, '\\u003c')}, MIN = ${mins}, C = [document.getElementById("a"), document.getElementById("b")], X = C.map(c => { c.width = 3840; c.height = 2160; return c.getContext("2d"); }), t0 = performance.now();

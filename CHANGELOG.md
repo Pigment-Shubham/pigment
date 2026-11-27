@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.5.1
+- New Apple vibe with 6 one-focus wallpapers: Command Key, Glass Command, Spotlight Bar, Dynamic Pill, Activity Rings and Siri Orb.
+
 ## 3.5.0
 - 10 new wallpapers: Liquid Metal, Lava Lamp, Weather Sky (follows your real time of day), Tarot Sun, Stained Glass, Rainy Window, Campfire, Moon Phase (tonight's real phase), Autumn Leaves and Pixel Dusk.
 - Cards have a one-tap download button.
