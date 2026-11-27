@@ -276,15 +276,15 @@ function initSaved() {
 }
 
 /* ---------- browse + home ---------- */
-let fStyle = 'all', fVibe = 'all', bDev = 'phone';
+let fStyle = 'all', fVibe = 'all', bDev = 'phone', fAll = false;
 function initBrowse() {
   const chips = $('#styleChips'); chips.textContent = '';
-  { const vc = $('#vibeChips'); vc.textContent = ''; [['all', 'Every vibe']].concat(VIBES.map(v => [v[0], v[0]])).forEach(([k, l]) => { const b = document.createElement('button'); b.className = 'chip' + (fVibe === k ? ' on' : ''); b.textContent = l; b.onclick = () => { fVibe = k; fStyle = 'all'; initBrowse(); }; vc.appendChild(b); }); }
+  { const vc = $('#vibeChips'); vc.textContent = ''; [['all', 'Every vibe']].concat(VIBES.map(v => [v[0], v[0]])).forEach(([k, l]) => { const b = document.createElement('button'); b.className = 'chip' + (fVibe === k ? ' on' : ''); b.textContent = l; b.onclick = () => { fVibe = k; fStyle = 'all'; initBrowse(); }; vc.appendChild(b); }); const tb = document.createElement('button'); tb.className = 'chip' + (fAll ? ' on' : ''); tb.textContent = fAll ? 'Showing every colour' : 'Show every colour'; tb.style.marginLeft = 'auto'; tb.onclick = () => { fAll = !fAll; initBrowse(); }; vc.appendChild(tb); }
   const vk = fVibe === 'all' ? null : VIBES.find(v => v[0] === fVibe)[1].split(' ');
   [['all', 'All']].concat(STYLES.filter(s => !vk || vk.includes(s[0])).map(s => [s[0], s[1]])).forEach(([k, l]) => { const b = document.createElement('button'); b.className = 'chip' + (fStyle === k ? ' on' : ''); b.textContent = l; b.onclick = () => { fStyle = k; initBrowse(); }; chips.appendChild(b); });
   $$('#devSeg button').forEach(b => b.classList.toggle('on', b.dataset.d === bDev));
   const g = $('#gal'); g.className = 'gal' + (bDev === 'desk' ? ' desk' : ''); g.textContent = ''; queue.length = 0;
-  const list = ALL.filter(d => (fStyle === 'all' || d.style === fStyle) && (!vk || vk.includes(d.style))), PAGE = 48; let shown = 0;
+  const list = ALL.filter(d => (fStyle === 'all' || d.style === fStyle) && (!vk || vk.includes(d.style)) && (fAll || fStyle !== 'all' || d.pal === styleOf(d.style)[5])), PAGE = 48; let shown = 0;
   const more = document.createElement('div'); more.style.cssText = 'display:flex;justify-content:center;margin:26px 0 8px';
   const mb = document.createElement('button'); mb.className = 'pill line'; more.appendChild(mb);
   const next = () => { list.slice(shown, shown + PAGE).forEach((d, i) => g.appendChild(card(d, bDev, openView, i))); shown = Math.min(list.length, shown + PAGE); mb.textContent = 'Show more (' + (list.length - shown) + ' left)'; more.hidden = shown >= list.length; };
@@ -298,7 +298,7 @@ function setHero(i) { { const day = Math.floor(Date.now() / 864e5), live = ALL.f
 function initHome() {
   { const l = saved().slice(-6).reverse(), fv = $('#favs'); fv.textContent = ''; if (l.length) { const cnt = {}; saved().forEach(d => { cnt[d.style] = (cnt[d.style] || 0) + 1; }); const top = Object.entries(cnt).sort((a, b) => b[1] - a[1])[0][0], hd = document.createElement('div'); hd.className = 'head'; hd.innerHTML = '<div><div class="kick"></div><h2 class="h2" style="margin-top:8px">Your favourites</h2></div>'; $('.kick', hd).textContent = 'Most saved: ' + styleOf(top)[1]; const g = document.createElement('div'); g.className = 'gal'; l.forEach((d, i) => g.appendChild(card(d, 'phone', openView, i))); fv.append(hd, g); } }
   if (!$('#seasonGal').firstChild) { const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '', south = /^(Australia|Pacific\/Auckland|Africa\/Johannesburg|America\/(Sao_Paulo|Santiago|Argentina))/.test(tz), mo = new Date().getMonth(), sm = south ? (mo + 6) % 12 : mo, season = sm >= 2 && sm <= 4 ? 'Spring Blossom' : sm >= 5 && sm <= 7 ? 'Summer Mango' : sm >= 8 && sm <= 10 ? 'Autumn Harvest' : 'Winter Frost', pn = mo === 11 ? 'Holiday' : season, sg = $('#seasonGal'); $('#seasonKick').textContent = 'Right now · ' + pn; ['grain', 'aurora', 'bubbles', 'dunes', 'bloom', 'silk'].forEach((k, i) => { const d = ALL.find(a => a.style === k && a.pal === pn); if (d) sg.appendChild(card(d, 'phone', openView, i)); }); }
-  $('#nBrowse').textContent = 'Browse ' + ALL.length + ' wallpapers'; $('#nStyles').textContent = STYLES.length + ' styles';
+  $('#nBrowse').textContent = 'Browse ' + STYLES.length + ' styles'; $('#nStyles').textContent = STYLES.length + ' styles';
   if ($('#mq').firstChild) { startAnim('hero', $('#heroCv'), () => heroD, 30); return; }
   setHero(0); startAnim('hero', $('#heroCv'), () => heroD, 30); paintTo($('#heroCv'), heroD, 2);
   $('#heroOpen').onclick = () => openView(heroD);

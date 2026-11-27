@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.2.1
+- Browse now shows one look per style (81) instead of every colour version. A "Show every colour" switch brings back all 2,025, and picking a style still shows all its colours.
+
 ## 3.2.0
 - 9 new live scenes: Storm Hills, Snowfall, Pixel Dusk, Isometric City, Rose Window (stained glass), Tarot Sun, Star Trails, Rainy Window, Grass Field. Now 81 styles and 2,025 wallpapers.
 

@@ -36,7 +36,7 @@ You can also just download `index.html` and open it. Sign-in (Firebase) only wor
 To rebuild after editing `src/`: copy `build3.py` and the parts next to each other and run `python3 build3.py`.
 
 ## Status
-Current version: **3.2.0**. See [CHANGELOG.md](CHANGELOG.md). Tested in a desktop browser only, not yet on real iPhone, Mac or Windows live-wallpaper apps.
+Current version: **3.2.1**. See [CHANGELOG.md](CHANGELOG.md). Tested in a desktop browser only, not yet on real iPhone, Mac or Windows live-wallpaper apps.
 
 ## Licence
 No licence has been chosen yet, so all rights are reserved by the author. Add a `LICENSE` file if you want others to reuse the code.
