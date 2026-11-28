@@ -12,3 +12,6 @@ s=s.replace('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta na
 s=re.sub(r'<noscript>.*?</noscript>','',s)
 s=s.replace('<style>\n[hidden]{display:none!important}html{color-scheme:light}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}\n','<style>\n',1)
 open('artifact.html','w').write(s)
+
+t=open('index.html').read(); i=t.index('<script>')
+open('pigment-screensaver.html','w').write(t[:i]+"<script>if(!location.hash)location.hash='#saver-play';\n"+t[i+8:])

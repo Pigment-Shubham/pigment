@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.8.1
+- Screensaver can start by itself: open `#saver-play` on the site, or use the single file `pigment-screensaver.html`, to run it as a Mac screensaver with a free helper app.
+
 ## 3.8.0
 - New Screensaver tab: plays your moving wallpapers full screen and fades from one to the next. Choose vibes, how often it changes, palette and an optional clock that drifts around the screen. Keeps the screen awake where the browser allows it.
 

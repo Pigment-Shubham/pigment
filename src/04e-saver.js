@@ -9,7 +9,7 @@
 .saver .clk{position:absolute;color:#fff;font-family:var(--display);font-weight:300;letter-spacing:-.02em;text-shadow:0 2px 30px rgba(0,0,0,.35);transition:opacity 1.2s,left 1.2s,top 1.2s,color 1.2s;pointer-events:none;line-height:1}
 .saver .clk small{display:block;font-size:.2em;font-weight:500;letter-spacing:.04em;margin-top:.6em;opacity:.85}
 .saver .svbar{position:absolute;left:50%;bottom:max(24px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;gap:8px;flex-wrap:wrap;justify-content:center;opacity:0;transition:opacity .4s;pointer-events:none;background:rgba(17,17,20,.7);padding:10px 12px;border-radius:999px;backdrop-filter:blur(10px)}
-.saver.show{cursor:default}.saver.show .svbar{opacity:1;pointer-events:auto}.saver .svbar .pill{color:#fff;border-color:#ffffff44}.saver .nm{position:absolute;left:24px;top:20px;color:#fff;font-size:13px;opacity:0;transition:opacity .4s;text-shadow:0 1px 8px rgba(0,0,0,.5)}.saver.show .nm{opacity:.85}`;
+.saver.nobar .svbar,.saver.nobar .nm{display:none}.saver.show{cursor:default}.saver.show .svbar{opacity:1;pointer-events:auto}.saver .svbar .pill{color:#fff;border-color:#ffffff44}.saver .nm{position:absolute;left:24px;top:20px;color:#fff;font-size:13px;opacity:0;transition:opacity .4s;text-shadow:0 1px 8px rgba(0,0,0,.5)}.saver.show .nm{opacity:.85}`;
   document.head.appendChild(css);
   const DEF = { vibes: [], every: 30, pal: '', clock: 'time' };
   const cfg = () => Object.assign({}, DEF, LS.get('pg_saver', {})), save = c => LS.set('pg_saver', c);
@@ -80,4 +80,5 @@
   addEventListener('resize', () => { if (run) size(); });
   document.addEventListener('visibilitychange', () => { if (run && !document.hidden && navigator.wakeLock) navigator.wakeLock.request('screen').then(l => { wl = l; }).catch(() => { }); });
   if (location.hash === '#saver') route();
+  if (location.hash === '#saver-play') { ov.classList.add('nobar'); startSaver(); }
 })();
