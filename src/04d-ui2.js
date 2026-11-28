@@ -38,3 +38,20 @@ function searchHay(d) {
     const cb = [...info.querySelectorAll('button')].find(e => e.textContent === 'Compare palettes'); (cb || $('.swatches', info) || info.lastChild).after(b);
   };
 })();
+
+/* ---------- backup reminder + offline mode ---------- */
+(function () {
+  function pgBackup() {
+    let look = null; try { look = JSON.parse(localStorage.getItem('pigment.look') || 'null'); } catch (e) { }
+    saveBlob(new Blob([JSON.stringify({ app: 'pigment', profile: LS.get('pg_profile', null), saved: saved(), look: look, cols: LS.get('pg_cols', []) })], { type: 'application/json' }), 'pigment-backup.json'); LS.set('pg_lastbackup', Date.now()); toast('Backup saved. Keep that file somewhere safe.');
+  }
+  const css = document.createElement('style'); css.textContent = '.bkn{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;border:1px solid var(--line);background:var(--soft);border-radius:18px;padding:12px 16px;margin:0 0 16px}.bkn span{flex:1;min-width:200px}'; document.head.appendChild(css);
+  let hid = false; const is = initSaved; initSaved = function () {
+    is(); const old = $('#bkn'); if (old) old.remove(); const l = saved(); if (hid || l.length < 3 || Date.now() - LS.get('pg_lastbackup', 0) < 14 * 864e5) return;
+    const b = document.createElement('div'); b.id = 'bkn'; b.className = 'bkn'; const s = document.createElement('span'); s.textContent = 'Your saved wallpapers live only in this browser. If you clear your browser data they are gone. Save a backup file to be safe.';
+    const go = document.createElement('button'); go.className = 'pill sm'; go.textContent = 'Back up now'; go.onclick = () => { pgBackup(); b.remove(); }; const lt = document.createElement('button'); lt.className = 'pill line sm'; lt.textContent = 'Later'; lt.onclick = () => { hid = true; b.remove(); };
+    b.append(s, go, lt); ($('#colBar') || $('#savedGal')).before(b);
+  };
+  /* offline: only on the real site (not inside the Claude preview) */
+  try { if ('serviceWorker' in navigator && location.protocol === 'https:' && /github\.io$/.test(location.hostname)) navigator.serviceWorker.register('sw.js').catch(() => { }); } catch (e) { }
+})();

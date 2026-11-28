@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.7.0
+- Works offline on the GitHub site: after one visit it opens without internet.
+- Backup reminder on the Saved page when you have 3 or more saves and no backup in 2 weeks.
+
 ## 3.6.3
 - Removed the Apple style wallpapers (Command Key, Glass Command, Spotlight Bar, Dynamic Pill, Activity Rings, Siri Orb).
 
