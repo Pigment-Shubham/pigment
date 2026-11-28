@@ -9,7 +9,7 @@
 Pigment draws every wallpaper from code, so there are no stock images. Pick a style and a palette, tweak it, and download it as a still image, a looping video or a live wallpaper.
 
 ## What it does
-- **1,475 wallpapers** from 59 styles × 25 palettes. Browse shows one look per style. Vibes: Soft, Retro, Nature, Tech, Craft, Music, Scenes, Designer, Apple and Pigment.
+- **1,325 wallpapers** from 53 styles × 25 palettes. Browse shows one look per style. Vibes: Soft, Retro, Nature, Tech, Craft, Music, Scenes, Designer and Pigment.
 - **Live styles** that move: cinematic scenes (Moonlit Lake, Sunset Sea, Blossom Night, Fireworks, Warp Speed, Storm Hills), Liquid Satin, Aurora, Fireflies, Metaballs, Silk and more.
 - **Music-reactive** styles that react to a beat or your microphone.
 - **Studio** to make your own: colours, detail, grain, speed, text overlay, calm clock area, widget area, or build from your own photo's colours.
@@ -38,7 +38,7 @@ You can also just download `index.html` and open it. Sign-in (Firebase) only wor
 To rebuild after editing `src/`: copy `build3.py` and the parts next to each other and run `python3 build3.py`.
 
 ## Status
-Current version: **3.6.2**. See [CHANGELOG.md](CHANGELOG.md). Tested in a desktop browser only, not yet on real iPhone, Mac or Windows live-wallpaper apps.
+Current version: **3.6.3**. See [CHANGELOG.md](CHANGELOG.md). Tested in a desktop browser only, not yet on real iPhone, Mac or Windows live-wallpaper apps.
 
 ## Licence
 No licence has been chosen yet, so all rights are reserved by the author. Add a `LICENSE` file if you want others to reuse the code.

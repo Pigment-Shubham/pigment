@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.6.3
+- Removed the Apple style wallpapers (Command Key, Glass Command, Spotlight Bar, Dynamic Pill, Activity Rings, Siri Orb).
+
 ## 3.6.2
 - Desktop wallpapers: the strip at the top for the menu bar now continues the wallpaper's own colour instead of fading to a fixed colour, so dark wallpapers get a dark top and no white fade.
 - Pill wallpapers leave more room at the top on desktop.
