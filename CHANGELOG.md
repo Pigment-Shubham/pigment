@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.9.0
+- Screensaver tab: pick exact styles, choose to rotate between them or keep just one wallpaper, and download a ready-made screensaver file with only those styles (clock and change time included).
+- Set up page has Mac screensaver steps.
+
 ## 3.8.1
 - Screensaver can start by itself: open `#saver-play` on the site, or use the single file `pigment-screensaver.html`, to run it as a Mac screensaver with a free helper app.
 
