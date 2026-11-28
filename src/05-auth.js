@@ -1,5 +1,5 @@
 /* ---------- local profile (name + picture), version check ---------- */
-const APP_VERSION = '3.9.0';
+const APP_VERSION = '3.9.1';
 (function () {
   const btn = $('#authBtn'), av = $('#authView'), box = $('#authActs');
   let P = LS.get('pg_profile', null);

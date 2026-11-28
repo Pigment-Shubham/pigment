@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.9.1
+- Screensaver tab explains how to use the file as a real screensaver on Mac (WebViewScreenSaver) and Windows (Lively Wallpaper), both free.
+
 ## 3.9.0
 - Screensaver tab: pick exact styles, choose to rotate between them or keep just one wallpaper, and download a ready-made screensaver file with only those styles (clock and change time included).
 - Set up page has Mac screensaver steps.
