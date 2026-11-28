@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.8.0
+- New Screensaver tab: plays your moving wallpapers full screen and fades from one to the next. Choose vibes, how often it changes, palette and an optional clock that drifts around the screen. Keeps the screen awake where the browser allows it.
+
 ## 3.7.0
 - Works offline on the GitHub site: after one visit it opens without internet.
 - Backup reminder on the Saved page when you have 3 or more saves and no backup in 2 weeks.

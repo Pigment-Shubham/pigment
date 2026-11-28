@@ -99,7 +99,7 @@
   document.addEventListener('keydown', e => {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     if (e.key === 'Escape') { if (!kb.hidden) kc(); else if (!sh.hidden) closeS(); return; }
-    if (typing(e)) return;
+    if (typing(e) || document.body.classList.contains('saving')) return;
     if (!sh.hidden) { if (e.key === 'ArrowLeft') act('skip'); else if (e.key === 'ArrowRight') act('keep'); else if (e.key === 'Enter') { e.preventDefault(); act('open'); } return; }
     if (e.key === '?') { kb.hidden = !kb.hidden; return; }
     if (!$('#view').hidden) { if (e.key === 'd' || e.key === 'D') download(vD, vDev); else if (e.key === 'v' || e.key === 'V') saveDesign(vD); return; }

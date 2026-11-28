@@ -345,12 +345,12 @@ $('#stDl').onclick = () => download(stD(), ST.dev, $('#stSize').value); if (TOUC
 $('#surprise').onclick = () => { const live = ALL.filter(a => styleOf(a.style)[3]), pl = PALS[Math.floor(Math.random() * PALS.length)], b = live[Math.floor(Math.random() * live.length)]; openView(Object.assign({}, b, { colors: pl[1].slice(), seed: Math.floor(Math.random() * 9000) + 1, name: pl[0] + ' ' + styleOf(b.style)[1], o: {} })); };
 { const ft = $('#footNote'), lb = document.createElement('button'); lb.className = 'authlink'; const sync = () => { lb.textContent = 'Battery saver: ' + (LITE ? 'on' : 'off'); }; sync(); lb.onclick = () => { LITE = !LITE; LS.set('pg_lite', LITE); sync(); toast(LITE ? 'Battery saver on: animations run gently.' : 'Battery saver off.'); }; ft.after(lb); }
 /* ---------- router ---------- */
-const PAGES = ['home', 'browse', 'studio', 'saved', 'setup'];
+const PAGES = ['home', 'browse', 'studio', 'saved', 'setup', 'saver'];
 function route() {
   let h = location.hash.slice(1); const shared = /^d-/.test(h) ? decodeDesign(h) : null; if (!PAGES.includes(h)) h = 'home';
   PAGES.forEach(p => { $('#p-' + p).hidden = p !== h; }); $$('#nav a').forEach(a => a.classList.toggle('on', a.dataset.p === h));
   ['hero', 'studio'].forEach(stopAnim);
-  if (h === 'home') initHome(); else if (h === 'browse') initBrowse(); else if (h === 'studio') buildStudio(); else if (h === 'setup') initSetup(); else initSaved();
+  if (h === 'home') initHome(); else if (h === 'browse') initBrowse(); else if (h === 'studio') buildStudio(); else if (h === 'setup') initSetup(); else if (h === 'saver') { if (window.initSaver) initSaver(); } else initSaved();
   if (shared) openView(shared);
 }
 window.addEventListener('hashchange', () => { route(); window.scrollTo(0, 0); });
